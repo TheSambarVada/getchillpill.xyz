@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chill Pill - Stop Typing, Start Talking</title>
+    <title>Chill Pill - Talk however you want. Get clean text.</title>
+    <link rel="icon" type="image/x-icon" href="chillpill.ico">
     <style>
         * {
             margin: 0;
@@ -13,33 +14,42 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
-            color: #e0e0e0;
+            background: #0a0a0f;
+            color: #e8e8e8;
             min-height: 100vh;
         }
 
-        /* Header / Nav */
+        /* Nav */
         .nav {
-            padding: 20px 40px;
+            padding: 18px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .nav-logo {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 52px;
+            height: 52px;
+        }
+
+        .nav-logo span {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e8e8e8;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 28px;
         }
 
         .nav-links a {
@@ -50,337 +60,393 @@
         }
 
         .nav-links a:hover {
-            color: #fff;
+            color: #e8e8e8;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 40px;
+            padding: 60px 40px 0;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 56px;
+            font-size: 52px;
             font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 18px;
+            line-height: 1.15;
+            color: #e8e8e8;
         }
 
         .hero .tagline {
-            font-size: 20px;
+            font-size: 18px;
             color: #888;
-            max-width: 600px;
-            margin: 0 auto 50px;
+            max-width: 580px;
+            margin: 0 auto 40px;
             line-height: 1.6;
         }
 
-        /* Download Buttons */
-        .download-section {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-            width: 260px;
-            text-align: center;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .download-btn.windows {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .download-btn.windows:hover {
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        .download-btn.mac {
-            background: rgba(255, 255, 255, 0.1);
-            color: #888;
-            border: 1px solid #333;
-        }
-
-        .download-btn.mac:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #aaa;
-        }
-
-        .download-btn .text {
-            text-align: center;
-        }
-
-        .download-btn .text small {
-            display: block;
-            font-size: 12px;
-            font-weight: normal;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        /* Pill Demo */
-        .demo-section {
-            margin: 40px 0;
-        }
-
-        .pill-demo {
+        .btn-primary {
             display: inline-flex;
             align-items: center;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 16px;
-            padding: 10px 28px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            padding: 16px 36px;
+            background: #22c55e;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.25);
         }
 
-        .pill-demo span {
-            color: #888;
-            font-size: 14px;
-            font-weight: bold;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(34, 197, 94, 0.35);
         }
 
-        .demo-label {
-            color: #666;
-            font-size: 13px;
-            margin-top: 15px;
-        }
 
-        /* Pain Points Section */
-        .pain-points {
-            max-width: 800px;
+        .hero-visual {
+            max-width: 100%;
             margin: 0 auto;
-            padding: 60px 40px;
-            text-align: center;
         }
 
-        .pain-points h2 {
-            font-size: 32px;
-            margin-bottom: 40px;
-        }
-
-        .pain-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            text-align: left;
-        }
-
-        .pain-item {
-            background: rgba(255, 100, 100, 0.05);
-            border: 1px solid rgba(255, 100, 100, 0.2);
+        .hero-visual img {
+            width: 100%;
             border-radius: 12px;
-            padding: 20px;
+            border: 1px solid rgba(239, 68, 68, 0.12);
         }
 
-        .pain-item .icon {
-            font-size: 24px;
-            margin-bottom: 10px;
+        /* Compatibility bar */
+        .compat-bar {
+            text-align: center;
+            padding: 28px 40px;
+            border-top: 1px solid rgba(239, 68, 68, 0.12);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.12);
         }
 
-        .pain-item p {
-            color: #aaa;
-            font-size: 15px;
-            line-height: 1.5;
+        .compat-bar p {
+            font-size: 13px;
+            color: #666;
+            letter-spacing: 0.3px;
         }
 
-        /* Features Section */
-        .features {
-            max-width: 1000px;
+        .compat-bar span {
+            color: #888;
+        }
+
+        /* Before / After */
+        .before-after {
+            max-width: 1100px;
             margin: 0 auto;
             padding: 80px 40px;
         }
 
-        .features h2 {
+        .before-after h2 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #e8e8e8;
         }
 
-        .features-grid {
+        .ba-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .ba-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: #16161f;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(239, 68, 68, 0.1);
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 30px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
+        .ba-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 10px;
         }
 
-        .feature-card p {
-            color: #888;
-            font-size: 14px;
-            line-height: 1.6;
+        .ba-context {
+            font-size: 12px;
+            font-weight: 600;
+            color: #22c55e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
-        /* How it Works */
-        .how-it-works {
+        .ba-before {
+            background: #111118;
+            padding: 28px;
+        }
+
+        .ba-before .ba-label {
+            color: #ef4444;
+        }
+
+        .ba-after {
+            background: #111118;
+            padding: 28px;
+        }
+
+        .ba-after .ba-label {
+            color: #22c55e;
+        }
+
+        .ba-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        .ba-text .filler {
+            color: #ef4444;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Steps */
+        .steps-section {
             max-width: 800px;
             margin: 0 auto;
             padding: 80px 40px;
             text-align: center;
         }
 
-        .how-it-works h2 {
-            font-size: 36px;
-            margin-bottom: 50px;
+        .steps-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
         }
 
         .steps {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 24px;
         }
 
         .step {
             flex: 1;
-            min-width: 200px;
-            padding: 20px;
+            padding: 24px 16px;
         }
 
         .step-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 2px solid rgba(239, 68, 68, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0 auto 20px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #22c55e;
+            margin: 0 auto 16px;
         }
 
         .step h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e8e8e8;
         }
 
         .step p {
             color: #888;
-            font-size: 14px;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
-        /* CTA Section */
-        .cta {
+        /* Bottom CTA */
+        .bottom-cta {
             text-align: center;
             padding: 80px 40px;
-            background: linear-gradient(180deg, transparent 0%, rgba(102, 126, 234, 0.1) 100%);
+            background: #111118;
+            border-top: 1px solid rgba(239, 68, 68, 0.1);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.1);
         }
 
-        .cta h2 {
+        .bottom-cta .price {
             font-size: 36px;
-            margin-bottom: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
-        .cta p {
+        .bottom-cta .price-note {
+            font-size: 16px;
             color: #888;
-            margin-bottom: 30px;
-            font-size: 18px;
+            margin-bottom: 32px;
         }
 
-        /* Footer */
+
+        /* Sticky download bar */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(17, 17, 24, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(239, 68, 68, 0.15);
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .sticky-bar .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .sticky-bar .dl-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .sticky-bar .dl-btn.windows {
+            background: #22c55e;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
+        }
+
+        .sticky-bar .dl-btn.windows:hover {
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+        }
+
+        .sticky-bar .dl-btn.mac {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .sticky-bar .dl-btn.mac:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Footer — needs padding-bottom to not get hidden by sticky bar */
         .footer {
             text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 32px 40px 80px;
+            border-top: 1px solid rgba(239, 68, 68, 0.1);
         }
 
         .footer p {
-            color: #666;
-            font-size: 14px;
+            font-size: 13px;
+            color: #555;
         }
 
         .footer a {
-            color: #667eea;
+            color: #888;
             text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #e8e8e8;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 32px;
+            }
+
+            .hero .tagline {
+                font-size: 16px;
             }
 
             .nav {
-                padding: 20px;
+                padding: 16px 20px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
             }
 
             .hero {
+                padding: 40px 20px 32px;
+            }
+
+            .ba-row {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .before-after {
                 padding: 60px 20px;
             }
 
-            .download-section {
-                flex-direction: column;
-                align-items: center;
+            .steps-section {
+                padding: 60px 20px;
             }
 
-            .download-btn {
-                width: 100%;
-                max-width: 280px;
+            .bottom-cta {
+                padding: 60px 20px;
+            }
+
+            .bottom-cta .price {
+                font-size: 28px;
+            }
+
+            .compat-bar p {
+                font-size: 12px;
+            }
+
+            .sticky-bar {
+                padding: 12px 16px;
+                gap: 8px;
+            }
+
+            .sticky-bar .dl-btn {
+                padding: 10px 18px;
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Nav -->
     <nav class="nav">
-        <div class="nav-logo">Chill Pill</div>
+        <a class="nav-logo" href="#">
+            <img src="logo-new-128.png" alt="Chill Pill">
+            <span>Chill Pill</span>
+        </a>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#how-it-works">How it Works</a>
@@ -388,144 +454,121 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <h1>Tired of Typing?<br><span>Take a Chill Pill.</span></h1>
+        <h1>Talk however you want.<br>Get clean text.</h1>
         <p class="tagline">
-            Stop wrestling with your keyboard. Just press a key, speak naturally,
-            and watch your words appear. Emails, messages, documents - done in seconds.
+            Speak naturally into any app. AI removes filler words, fixes grammar, and polishes your text in real time.
         </p>
-
-        <div class="price-tag">Just $6.99 - One Time</div>
-
-        <!-- Download Buttons -->
-        <div class="download-section">
-            <a href="downloads/ChillPill_Setup.exe" class="download-btn windows">
-                <div class="text">
-                    Download for Windows
-                    <small>Windows 10/11 (64-bit)</small>
-                </div>
-            </a>
-            <a href="#" class="download-btn mac" onclick="alert('macOS version coming soon!'); return false;">
-                <div class="text">
-                    Download for Mac
-                    <small>Coming Soon</small>
-                </div>
-            </a>
-        </div>
-
-        <!-- Pill Demo -->
-        <div class="demo-section">
-            <div class="pill-demo">
-                <span>Chill Pill</span>
-            </div>
-            <p class="demo-label">A tiny floating pill that stays out of your way</p>
+        <div class="hero-visual">
+            <img src="cover.png" alt="Chill Pill pipeline: speak into mic, AI cleans your text, polished output appears">
         </div>
     </section>
 
-    <!-- Pain Points -->
-    <section class="pain-points">
-        <h2>Sound familiar?</h2>
-        <div class="pain-grid">
-            <div class="pain-item">
-                <div class="icon">&#128553;</div>
-                <p>"I spend <strong>hours</strong> typing emails every day. My wrists hurt."</p>
-            </div>
-            <div class="pain-item">
-                <div class="icon">&#128564;</div>
-                <p>"I can <strong>think faster</strong> than I can type. It's frustrating."</p>
-            </div>
-            <div class="pain-item">
-                <div class="icon">&#128548;</div>
-                <p>"Long documents take <strong>forever</strong>. There has to be a better way."</p>
-            </div>
-            <div class="pain-item">
-                <div class="icon">&#129300;</div>
-                <p>"I <strong>know what I want to say</strong>, but typing it out is tedious."</p>
-            </div>
-        </div>
-    </section>
+    <!-- Compatibility bar -->
+    <div class="compat-bar">
+        <p>Works with: <span>Gmail, WhatsApp, Slack, Google Docs, VS Code, Notion</span> &mdash; any app where you type</p>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2>Why Chill Pill?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">&#9889;</div>
-                <h3>Lightning Fast</h3>
-                <p>Powered by Whisper AI for near-instant transcription. Speak naturally and see your words appear in milliseconds.</p>
+    <!-- Before / After -->
+    <section class="before-after" id="features">
+        <h2>See the difference</h2>
+        <div class="ba-examples">
+            <!-- Email -->
+            <div class="ba-row">
+                <div class="ba-before">
+                    <div class="ba-context">Email</div>
+                    <div class="ba-label">What you said</div>
+                    <p class="ba-text">
+                        <span class="filler">um</span> hey Sarah <span class="filler">so like</span> I wanted to <span class="filler">uh</span> follow up on the meeting from yesterday <span class="filler">basically</span> I think we should <span class="filler">you know</span> move the deadline to next Friday <span class="filler">if that's like</span> okay with you <span class="filler">yeah</span>
+                    </p>
+                </div>
+                <div class="ba-after">
+                    <div class="ba-context">Email</div>
+                    <div class="ba-label">What gets typed</div>
+                    <p class="ba-text">
+                        Hey Sarah, I wanted to follow up on yesterday's meeting. I think we should move the deadline to next Friday, if that works for you.
+                    </p>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">&#127760;</div>
-                <h3>Works Everywhere</h3>
-                <p>Type into any app - emails, documents, code editors, chat apps, browsers. If you can type there, Chill Pill works there.</p>
+            <!-- Chat -->
+            <div class="ba-row">
+                <div class="ba-before">
+                    <div class="ba-context">Chat</div>
+                    <div class="ba-label">What you said</div>
+                    <p class="ba-text">
+                        <span class="filler">yeah so</span> I'm running like 10 minutes late <span class="filler">um</span> can you <span class="filler">uh</span> go ahead and order for me <span class="filler">I guess just like</span> get me the usual
+                    </p>
+                </div>
+                <div class="ba-after">
+                    <div class="ba-context">Chat</div>
+                    <div class="ba-label">What gets typed</div>
+                    <p class="ba-text">
+                        I'm running about 10 minutes late. Can you go ahead and order for me? Just get me the usual.
+                    </p>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">&#128293;</div>
-                <h3>Minimal & Clean</h3>
-                <p>A tiny floating pill that stays on top. No clutter, no system tray icons, no distractions. Just you and your words.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">&#128176;</div>
-                <h3>One-Time Payment</h3>
-                <p>Pay once, use forever. No subscriptions, no monthly fees. Just $6.99 and it's yours.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">&#9881;</div>
-                <h3>Customizable</h3>
-                <p>Set your own hotkey, choose between Toggle or Push-to-Talk mode, drag the pill anywhere on screen.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">&#127919;</div>
-                <h3>Accurate</h3>
-                <p>Uses Whisper Large V3 - one of the most accurate speech recognition models. Handles different accents well.</p>
+            <!-- Document -->
+            <div class="ba-row">
+                <div class="ba-before">
+                    <div class="ba-context">Document</div>
+                    <div class="ba-label">What you said</div>
+                    <p class="ba-text">
+                        <span class="filler">so basically</span> the quarterly results show that <span class="filler">um</span> revenue increased by like 15 percent <span class="filler">which is you know</span> above our projections and <span class="filler">uh</span> the main driver was <span class="filler">I think</span> the new product line that <span class="filler">we like</span> launched in September
+                    </p>
+                </div>
+                <div class="ba-after">
+                    <div class="ba-context">Document</div>
+                    <div class="ba-label">What gets typed</div>
+                    <p class="ba-text">
+                        The quarterly results show that revenue increased by 15%, above our projections. The main driver was the new product line launched in September.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- How it Works -->
-    <section class="how-it-works" id="how-it-works">
-        <h2>Get Started in 3 Steps</h2>
+    <section class="steps-section" id="how-it-works">
+        <h2>Get started in 30 seconds</h2>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Install & Get API Key</h3>
-                <p>Download Chill Pill and get your free API key from Groq (takes 30 seconds)</p>
+                <h3>Download &amp; get free API key</h3>
+                <p>Install Chill Pill and grab a free key from Groq &mdash; takes 30 seconds.</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>Enter Your Key</h3>
-                <p>Hover over the pill, click "API Key", paste your key, and you're ready</p>
+                <h3>Paste your key into the pill</h3>
+                <p>Hover the pill, click "API Key", paste it in. Done.</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <h3>Start Talking</h3>
-                <p>Press F9 (or your custom hotkey), speak, and watch your words appear</p>
+                <h3>Press F9 and start talking</h3>
+                <p>Speak naturally. Clean text appears wherever your cursor is.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-        <h2>Ready to stop typing?</h2>
-        <p>Join thousands who've already taken the chill pill.</p>
-        <a href="downloads/ChillPill_Setup.exe" class="download-btn windows" style="display: inline-flex;">
-            <div class="text">
-                Get Chill Pill - $6.99
-                <small>One-time payment, yours forever</small>
-            </div>
-        </a>
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+        <p class="price">Stop typing. Start talking.</p>
+        <p class="price-note">Works with any app. Set up in 30 seconds.</p>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>Chill Pill - Voice to text, the easy way.</p>
-        <p style="margin-top: 10px;">
-            <a href="https://console.groq.com/keys" target="_blank">Get Free Groq API Key</a>
-        </p>
-        <p style="margin-top: 20px; font-size: 12px; color: #555;">
-            Questions? <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">Contact us</a>
-        </p>
+        <p>Chill Pill &mdash; Voice to text, the easy way.</p>
+        <div class="footer-links">
+            <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">Contact</a>
+            <a href="https://console.groq.com/keys" target="_blank">Get API Key</a>
+        </div>
     </footer>
+
+    <!-- Sticky download bar -->
+    <div class="sticky-bar">
+        <a href="downloads/ChillPill_Setup.exe" class="dl-btn windows">Download for Windows</a>
+        <a href="downloads/ChillPill_Mac.dmg" class="dl-btn mac">Download for Mac</a>
+    </div>
 </body>
 </html>
