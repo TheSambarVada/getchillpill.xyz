@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Chill Pill</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e8e8e8;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .last-updated {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #22c55e;
+            font-size: 22px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        p, li {
+            color: #ccc;
+            margin-bottom: 12px;
+        }
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+        li { margin-bottom: 8px; }
+        strong { color: #e8e8e8; }
+        a { color: #22c55e; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid #222;
+        }
+        th { color: #aaa; font-size: 13px; }
+        td { color: #ccc; }
+        .highlight-box {
+            background: rgba(34, 197, 94, 0.08);
+            border-left: 4px solid #22c55e;
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .highlight-box p { margin-bottom: 0; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Chill Pill</a>
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: February 15, 2026</p>
+
+        <div class="highlight-box">
+            <p><strong>Summary:</strong> Chill Pill records audio only when you press the hotkey. Audio is sent to Groq for transcription, then immediately discarded. We do not store, sell, or share your audio or transcribed text. All data stays on your device or is processed ephemerally by Groq.</p>
+        </div>
+
+        <h2>1. Who We Are</h2>
+        <p>Chill Pill ("we", "our", "us") is a desktop voice dictation application for Windows and macOS, developed and published by Chill Pill. Our website is <a href="https://getchillpill.xyz">getchillpill.xyz</a>.</p>
+        <p>For privacy-related inquiries, contact us at: <strong>privacy@getchillpill.xyz</strong></p>
+
+        <h2>2. What Data We Collect</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data Type</th>
+                    <th>When Collected</th>
+                    <th>Stored Where</th>
+                    <th>Retention</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Audio recording</strong></td>
+                    <td>Only while you hold or toggle the hotkey</td>
+                    <td>Temporarily in device memory (RAM)</td>
+                    <td>Discarded immediately after transcription</td>
+                </tr>
+                <tr>
+                    <td><strong>Transcribed text</strong></td>
+                    <td>After Groq processes audio</td>
+                    <td>Temporarily in device memory (RAM)</td>
+                    <td>Discarded after pasting into your active window</td>
+                </tr>
+                <tr>
+                    <td><strong>Groq API key</strong></td>
+                    <td>When you enter it in Settings</td>
+                    <td>Locally on your device</td>
+                    <td>Until you delete it or uninstall</td>
+                </tr>
+                <tr>
+                    <td><strong>License key</strong></td>
+                    <td>When you activate a license</td>
+                    <td>Locally on your device (Windows Registry / macOS plist)</td>
+                    <td>Until you deactivate or uninstall</td>
+                </tr>
+                <tr>
+                    <td><strong>App preferences</strong></td>
+                    <td>When you change settings</td>
+                    <td>Locally on your device</td>
+                    <td>Until you reset or uninstall</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <p><strong>We do NOT collect:</strong> names, email addresses, IP addresses, location data, device identifiers, usage analytics, telemetry, crash reports, or any data beyond what is listed above.</p>
+        </div>
+
+        <h2>3. How Your Data Is Used</h2>
+        <ul>
+            <li><strong>Audio recording</strong> — sent to Groq's API (Whisper model) for speech-to-text transcription. The audio is never saved to disk by Chill Pill.</li>
+            <li><strong>Transcribed text</strong> — optionally sent to Groq's API (LLaMA model) for text polishing (removing filler words, fixing grammar). The polished text is then typed into your active window and discarded from memory.</li>
+            <li><strong>API key &amp; preferences</strong> — stored locally to make the app work. Never transmitted anywhere except to Groq's API for authentication.</li>
+            <li><strong>License key</strong> — stored locally. Validated against our license server to confirm purchase. No personal data is sent during validation.</li>
+        </ul>
+
+        <h2>4. Third-Party Services</h2>
+        <p>Chill Pill uses a single third-party service:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>What We Send</th>
+                    <th>Their Retention</th>
+                    <th>Their Policy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Groq (GroqCloud API)</strong></td>
+                    <td>Audio (for transcription) and text (for polishing)</td>
+                    <td>Not retained by default. Audio is deleted immediately after processing. Zero Data Retention (ZDR) available in Groq Console.</td>
+                    <td><a href="https://groq.com/privacy-policy" target="_blank">Groq Privacy Policy</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Chill Pill uses <strong>your own Groq API key</strong> — meaning your data is governed by your direct relationship with Groq under their terms. We are not an intermediary. We do not have access to your Groq account or your API usage.</p>
+
+        <h2>5. Keyboard &amp; Input Monitoring</h2>
+        <p>Chill Pill uses a global keyboard listener (via the <code>pynput</code> library) <strong>solely to detect your configured hotkey</strong> (e.g., F9). This is required to start/stop voice recording from any application.</p>
+        <ul>
+            <li>We <strong>do not log, record, or transmit</strong> any keystrokes.</li>
+            <li>The listener only checks whether the pressed key matches your hotkey. All other key events are ignored and discarded.</li>
+            <li>After transcription, Chill Pill uses <code>pyautogui</code> to type the result into your active window. This simulates keyboard input locally and does not transmit any data.</li>
+        </ul>
+
+        <h2>6. Microphone Access</h2>
+        <p>Chill Pill accesses your microphone <strong>only when you activate recording</strong> by pressing your hotkey. Recording stops immediately when you release or re-press the hotkey.</p>
+        <ul>
+            <li>Audio is captured in RAM and sent directly to Groq's API over HTTPS.</li>
+            <li>Audio is <strong>never saved to disk</strong> on your device.</li>
+            <li>Audio is <strong>never stored on our servers</strong> — we do not operate any servers that receive your audio.</li>
+        </ul>
+
+        <h2>7. Data Storage &amp; Security</h2>
+        <ul>
+            <li>All app data (API key, preferences, license) is stored <strong>locally on your device</strong> in <code>%APPDATA%\ChillPill\</code> (Windows) or <code>~/Library/Preferences/</code> (macOS).</li>
+            <li>API communication with Groq uses <strong>HTTPS (TLS encryption)</strong> in transit.</li>
+            <li>We do not operate servers, databases, or cloud storage. There is nothing to breach on our end.</li>
+        </ul>
+
+        <h2>8. Your Rights</h2>
+        <p>Depending on your jurisdiction, you may have the following rights:</p>
+
+        <h3 style="color: #e8e8e8; font-size: 16px; margin-top: 20px;">Under GDPR (European Union / EEA)</h3>
+        <ul>
+            <li><strong>Right to access</strong> — request what data we hold about you.</li>
+            <li><strong>Right to erasure</strong> — request deletion of your data.</li>
+            <li><strong>Right to restrict processing</strong> — limit how we use your data.</li>
+            <li><strong>Right to data portability</strong> — receive your data in a portable format.</li>
+            <li><strong>Right to object</strong> — object to data processing.</li>
+        </ul>
+        <p>Since all your data is stored locally on your device, you can exercise these rights by simply deleting the app's settings folder or uninstalling the application. No request to us is necessary.</p>
+
+        <h3 style="color: #e8e8e8; font-size: 16px; margin-top: 20px;">Under CCPA / CPRA (California, USA)</h3>
+        <ul>
+            <li>We do <strong>not sell or share</strong> your personal information.</li>
+            <li>We do <strong>not use</strong> your personal information for targeted advertising.</li>
+            <li>You have the right to know what data is collected, request deletion, and opt out of sale — though none of these apply since we don't collect or store personal data on our end.</li>
+        </ul>
+
+        <h3 style="color: #e8e8e8; font-size: 16px; margin-top: 20px;">Under DPDPA 2023 (India)</h3>
+        <ul>
+            <li>You have the right to obtain information about how your personal data is processed.</li>
+            <li>You have the right to correction and erasure of your personal data.</li>
+            <li>You have the right to nominate another person to exercise your rights.</li>
+            <li>You have the right to file a grievance with us and, if unresolved, with the <strong>Data Protection Board of India</strong>.</li>
+        </ul>
+        <p>Contact <strong>privacy@getchillpill.xyz</strong> to exercise any of these rights.</p>
+
+        <h2>9. Children's Privacy</h2>
+        <p>Chill Pill is not intended for use by children under the age of 13 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal data from children. If you believe a child has used the application, note that no personal data is transmitted to or stored by us.</p>
+
+        <h2>10. Auto-Start &amp; Registry</h2>
+        <p>If you enable "Start Chill Pill when Windows starts" during installation or in Settings, the app adds a registry entry at:</p>
+        <p><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\ChillPill</code></p>
+        <p>This is removed automatically when you uninstall the app or disable the option. No data is collected through this feature.</p>
+
+        <h2>11. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last updated" date. We encourage you to review this policy periodically.</p>
+
+        <h2>12. Contact</h2>
+        <p>For any questions or concerns regarding this Privacy Policy, contact us at:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:privacy@getchillpill.xyz">privacy@getchillpill.xyz</a></li>
+            <li><strong>Website:</strong> <a href="https://getchillpill.xyz">getchillpill.xyz</a></li>
+        </ul>
+
+        <div class="footer">
+            <p>Chill Pill &mdash; Voice Dictation for Windows &amp; macOS</p>
+        </div>
+    </div>
+</body>
+</html>
