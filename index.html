@@ -3,444 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chill Pill - Talk however you want. Get clean text.</title>
+    <title>Chill Pill — Voice dictation that actually works</title>
     <link rel="icon" type="image/x-icon" href="chillpill.ico">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0f;
-            color: #e8e8e8;
+            background: #08080f;
+            color: #e0e0e8;
             min-height: 100vh;
         }
 
-        /* Nav */
+        /* ── Nav ── */
         .nav {
-            padding: 18px 40px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1100px;
             margin: 0 auto;
         }
-
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-
-        .nav-logo img {
-            width: 52px;
-            height: 52px;
-        }
-
-        .nav-logo span {
-            font-size: 20px;
-            font-weight: 700;
-            color: #e8e8e8;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-        }
-
+        .nav-logo img { width: 48px; height: 48px; }
+        .nav-logo span { font-size: 19px; font-weight: 700; color: #e0e0e8; }
+        .nav-links { display: flex; gap: 28px; }
         .nav-links a {
-            color: #888;
+            color: #666;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.2s;
         }
+        .nav-links a:hover { color: #e0e0e8; }
 
-        .nav-links a:hover {
-            color: #e8e8e8;
-        }
-
-        /* Hero */
+        /* ── Hero ── */
         .hero {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 60px 40px 0;
+            padding: 64px 40px 0;
             text-align: center;
         }
-
-        .hero h1 {
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 18px;
-            line-height: 1.15;
-            color: #e8e8e8;
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #22c55e;
+            margin-bottom: 20px;
         }
-
+        .hero h1 {
+            font-size: 54px;
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 20px;
+            color: #f0f0f8;
+        }
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         .hero .tagline {
             font-size: 18px;
             color: #888;
-            max-width: 580px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto 36px;
+            line-height: 1.65;
         }
-
         .btn-primary {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 16px 36px;
+            gap: 8px;
+            padding: 15px 34px;
             background: #22c55e;
             color: #fff;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             border-radius: 10px;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.25);
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.28);
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 32px rgba(34, 197, 94, 0.35);
+            box-shadow: 0 10px 32px rgba(34, 197, 94, 0.4);
         }
-
-
+        .hero-sub {
+            font-size: 13px;
+            color: #444;
+            margin-top: 12px;
+        }
         .hero-visual {
-            max-width: 100%;
-            margin: 0 auto;
+            margin-top: 52px;
         }
-
         .hero-visual img {
             width: 100%;
-            border-radius: 12px;
-            border: 1px solid rgba(239, 68, 68, 0.12);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
         }
 
-        /* Compatibility bar */
+        /* ── Compat bar ── */
         .compat-bar {
             text-align: center;
-            padding: 28px 40px;
-            border-top: 1px solid rgba(239, 68, 68, 0.12);
-            border-bottom: 1px solid rgba(239, 68, 68, 0.12);
+            padding: 24px 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+        .compat-bar p { font-size: 13px; color: #555; }
+        .compat-bar span { color: #777; }
 
-        .compat-bar p {
-            font-size: 13px;
-            color: #666;
-            letter-spacing: 0.3px;
-        }
-
-        .compat-bar span {
-            color: #888;
-        }
-
-        /* Before / After */
-        .before-after {
+        /* ── Section shell ── */
+        .section {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 40px;
+            padding: 88px 40px;
         }
-
-        .before-after h2 {
-            text-align: center;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 48px;
-            color: #e8e8e8;
-        }
-
-        .ba-examples {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .ba-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px;
-            background: #16161f;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(239, 68, 68, 0.1);
-        }
-
-        .ba-label {
+        .section-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .section h2 {
+            font-size: 34px;
+            font-weight: 700;
+            text-align: center;
+            color: #f0f0f8;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .section .section-sub {
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 52px;
         }
 
-        .ba-context {
+        /* ── Modes ── */
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .mode-card {
+            background: #0f0f1a;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .mode-card:hover {
+            transform: translateY(-3px);
+        }
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            border-radius: 14px 14px 0 0;
+        }
+        .mode-card.transcribe::before { background: #a855f7; }
+        .mode-card.transform::before  { background: #22c55e; }
+        .mode-card.translate::before  { background: #3b82f6; }
+        .mode-card:hover.transcribe { border-color: rgba(168,85,247,0.3); }
+        .mode-card:hover.transform  { border-color: rgba(34,197,94,0.3); }
+        .mode-card:hover.translate  { border-color: rgba(59,130,246,0.3); }
+
+        .mode-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        .mode-badge.transcribe { background: rgba(168,85,247,0.12); color: #a855f7; }
+        .mode-badge.transform  { background: rgba(34,197,94,0.12);  color: #22c55e; }
+        .mode-badge.translate  { background: rgba(59,130,246,0.12); color: #60a5fa; }
+
+        .mode-card h3 {
+            font-size: 17px;
             font-weight: 600;
-            color: #22c55e;
+            color: #e0e0e8;
+            margin-bottom: 8px;
+        }
+        .mode-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .mode-example {
+            background: #161622;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.55;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .mode-example .ex-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
-
-        .ba-before {
-            background: #111118;
-            padding: 28px;
-        }
-
-        .ba-before .ba-label {
-            color: #ef4444;
-        }
-
-        .ba-after {
-            background: #111118;
-            padding: 28px;
-        }
-
-        .ba-after .ba-label {
-            color: #22c55e;
-        }
-
-        .ba-text {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #ccc;
-        }
-
-        .ba-text .filler {
+        .mode-card.transcribe .ex-label { color: #7c3aed; }
+        .mode-card.transform .ex-label  { color: #16a34a; }
+        .mode-card.translate .ex-label  { color: #2563eb; }
+        .mode-example .filler {
             color: #ef4444;
             text-decoration: line-through;
             opacity: 0.7;
         }
+        .mode-example .out { color: #d1d5db; }
 
-        /* Steps */
-        .steps-section {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 40px;
-            text-align: center;
+        /* ── Before/After ── */
+        .ba-section { background: #0c0c15; }
+        .ba-section .section { padding: 88px 40px; }
+
+        .ba-examples { display: flex; flex-direction: column; gap: 20px; }
+        .ba-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
         }
-
-        .steps-section h2 {
-            font-size: 32px;
+        .ba-col { padding: 24px 28px; background: #0f0f1a; }
+        .ba-col + .ba-col { border-left: 1px solid rgba(255,255,255,0.06); }
+        .ba-tag {
+            font-size: 10px;
             font-weight: 700;
-            margin-bottom: 48px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
+        .ba-col.before .ba-tag { color: #ef4444; }
+        .ba-col.after  .ba-tag { color: #22c55e; }
+        .ba-context {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .ba-text { font-size: 14px; line-height: 1.7; color: #aaa; }
+        .ba-text .filler { color: #ef4444; text-decoration: line-through; opacity: 0.7; }
+        .ba-text .hi { color: #888; font-style: italic; }
+        .ba-text .en { color: #60a5fa; }
 
+        /* ── Steps ── */
         .steps {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
-
         .step {
-            flex: 1;
-            padding: 24px 16px;
+            text-align: center;
+            padding: 28px 20px;
+            background: #0f0f1a;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
         }
-
         .step-number {
-            width: 44px;
-            height: 44px;
-            background: transparent;
-            border: 2px solid rgba(239, 68, 68, 0.25);
+            width: 40px;
+            height: 40px;
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: #22c55e;
             margin: 0 auto 16px;
         }
+        .step h3 { font-size: 15px; font-weight: 600; color: #e0e0e8; margin-bottom: 8px; }
+        .step p { font-size: 13px; color: #666; line-height: 1.55; }
 
-        .step h3 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #e8e8e8;
-        }
-
-        .step p {
-            color: #888;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        /* Bottom CTA */
+        /* ── Bottom CTA ── */
         .bottom-cta {
             text-align: center;
             padding: 80px 40px;
-            background: #111118;
-            border-top: 1px solid rgba(239, 68, 68, 0.1);
-            border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+            background: #0c0c15;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-
-        .bottom-cta .price {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 6px;
+        .bottom-cta h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #f0f0f8;
+            margin-bottom: 10px;
         }
+        .bottom-cta p { font-size: 16px; color: #666; margin-bottom: 32px; }
 
-        .bottom-cta .price-note {
-            font-size: 16px;
-            color: #888;
-            margin-bottom: 32px;
-        }
-
-
-        /* Sticky download bar */
+        /* ── Sticky bar ── */
         .sticky-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             z-index: 100;
-            background: rgba(17, 17, 24, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(239, 68, 68, 0.15);
+            background: rgba(8,8,15,0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255,255,255,0.07);
             padding: 14px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
         }
-
         .sticky-bar .dl-btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 10px 28px;
+            gap: 7px;
+            padding: 10px 26px;
             font-size: 14px;
             font-weight: 600;
             border-radius: 8px;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
-
-        .sticky-bar .dl-btn:hover {
-            transform: translateY(-1px);
-        }
-
+        .sticky-bar .dl-btn:hover { transform: translateY(-1px); }
         .sticky-bar .dl-btn.windows {
             background: #22c55e;
             color: #fff;
-            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
+            box-shadow: 0 4px 16px rgba(34,197,94,0.25);
         }
-
-        .sticky-bar .dl-btn.windows:hover {
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
-        }
-
+        .sticky-bar .dl-btn.windows:hover { box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
         .sticky-bar .dl-btn.mac {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ccc;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            background: rgba(255,255,255,0.04);
+            color: #999;
+            border: 1px solid rgba(255,255,255,0.1);
         }
+        .sticky-bar .dl-btn.mac:hover { background: rgba(255,255,255,0.09); }
 
-        .sticky-bar .dl-btn.mac:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        /* Footer — needs padding-bottom to not get hidden by sticky bar */
+        /* ── Footer ── */
         .footer {
             text-align: center;
-            padding: 32px 40px 80px;
-            border-top: 1px solid rgba(239, 68, 68, 0.1);
+            padding: 28px 40px 88px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
+        .footer p { font-size: 13px; color: #444; }
+        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+        .footer a { color: #555; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer a:hover { color: #e0e0e8; }
 
-        .footer p {
-            font-size: 13px;
-            color: #555;
-        }
-
-        .footer a {
-            color: #888;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer a:hover {
-            color: #e8e8e8;
-        }
-
-        .footer-links {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        /* Responsive */
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero .tagline {
-                font-size: 16px;
-            }
-
-            .nav {
-                padding: 16px 20px;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-            }
-
-            .hero {
-                padding: 40px 20px 32px;
-            }
-
-            .ba-row {
-                grid-template-columns: 1fr;
-            }
-
-            .steps {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .before-after {
-                padding: 60px 20px;
-            }
-
-            .steps-section {
-                padding: 60px 20px;
-            }
-
-            .bottom-cta {
-                padding: 60px 20px;
-            }
-
-            .bottom-cta .price {
-                font-size: 28px;
-            }
-
-            .compat-bar p {
-                font-size: 12px;
-            }
-
-            .sticky-bar {
-                padding: 12px 16px;
-                gap: 8px;
-            }
-
-            .sticky-bar .dl-btn {
-                padding: 10px 18px;
-                font-size: 13px;
-            }
+            .hero h1 { font-size: 34px; }
+            .hero { padding: 44px 20px 0; }
+            .nav { padding: 16px 20px; }
+            .nav-links { gap: 16px; }
+            .section { padding: 60px 20px; }
+            .modes-grid { grid-template-columns: 1fr; }
+            .steps { grid-template-columns: 1fr; gap: 12px; }
+            .ba-row { grid-template-columns: 1fr; }
+            .ba-col + .ba-col { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
+            .sticky-bar { padding: 12px 16px; gap: 8px; }
+            .sticky-bar .dl-btn { padding: 10px 18px; font-size: 13px; }
+            .bottom-cta h2 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
+
     <!-- Nav -->
     <nav class="nav">
         <a class="nav-logo" href="#">
@@ -448,128 +394,161 @@
             <span>Chill Pill</span>
         </a>
         <div class="nav-links">
-            <a href="#features">Features</a>
+            <a href="#modes">Modes</a>
             <a href="#how-it-works">How it Works</a>
-            <a href="https://console.groq.com/keys" target="_blank">Get API Key</a>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Talk however you want.<br>Get clean text.</h1>
+        <span class="hero-eyebrow">AI Voice Dictation for Windows</span>
+        <h1>Speak freely.<br><em>Get perfect text.</em></h1>
         <p class="tagline">
-            Speak naturally into any app. AI removes filler words, fixes grammar, and polishes your text in real time.
+            Press a hotkey, say what you mean, and Chill Pill pastes polished text wherever your cursor is.
         </p>
+        <a href="downloads/ChillPill_Setup.exe" class="btn-primary">
+            ⬇&nbsp; Download for Windows
+        </a>
+        <p class="hero-sub">Free &nbsp;·&nbsp; No account needed &nbsp;·&nbsp; Works in any app</p>
         <div class="hero-visual">
-            <img src="cover.png" alt="Chill Pill pipeline: speak into mic, AI cleans your text, polished output appears">
+            <img src="cover.png" alt="Chill Pill: speak into mic, AI cleans your text, polished output appears">
         </div>
     </section>
 
-    <!-- Compatibility bar -->
+    <!-- Compat bar -->
     <div class="compat-bar">
-        <p>Works with: <span>Gmail, WhatsApp, Slack, Google Docs, VS Code, Notion</span> &mdash; any app where you type</p>
+        <p>Works with <span>Gmail, WhatsApp, Slack, Google Docs, VS Code, Notion</span> &mdash; anywhere you type</p>
     </div>
 
-    <!-- Before / After -->
-    <section class="before-after" id="features">
-        <h2>See the difference</h2>
-        <div class="ba-examples">
-            <!-- Email -->
-            <div class="ba-row">
-                <div class="ba-before">
-                    <div class="ba-context">Email</div>
-                    <div class="ba-label">What you said</div>
-                    <p class="ba-text">
-                        <span class="filler">um</span> hey Sarah <span class="filler">so like</span> I wanted to <span class="filler">uh</span> follow up on the meeting from yesterday <span class="filler">basically</span> I think we should <span class="filler">you know</span> move the deadline to next Friday <span class="filler">if that's like</span> okay with you <span class="filler">yeah</span>
-                    </p>
-                </div>
-                <div class="ba-after">
-                    <div class="ba-context">Email</div>
-                    <div class="ba-label">What gets typed</div>
-                    <p class="ba-text">
-                        Hey Sarah, I wanted to follow up on yesterday's meeting. I think we should move the deadline to next Friday, if that works for you.
-                    </p>
+    <!-- Modes -->
+    <section class="section" id="modes">
+        <div class="section-label">Three modes</div>
+        <h2>One hotkey. Three superpowers.</h2>
+        <p class="section-sub">Tap the mode button in the pill to switch. No settings buried in menus.</p>
+
+        <div class="modes-grid">
+
+            <div class="mode-card transcribe">
+                <div class="mode-badge transcribe">Transcribe</div>
+                <h3>Exact words, exactly typed</h3>
+                <p>What you say is what gets pasted. Nothing added, nothing removed. Great for notes, quotes, or code comments.</p>
+                <div class="mode-example">
+                    <div class="ex-label">Output</div>
+                    <span class="out">So um I wanted to check if the deploy went through</span>
                 </div>
             </div>
-            <!-- Chat -->
-            <div class="ba-row">
-                <div class="ba-before">
-                    <div class="ba-context">Chat</div>
-                    <div class="ba-label">What you said</div>
-                    <p class="ba-text">
-                        <span class="filler">yeah so</span> I'm running like 10 minutes late <span class="filler">um</span> can you <span class="filler">uh</span> go ahead and order for me <span class="filler">I guess just like</span> get me the usual
-                    </p>
-                </div>
-                <div class="ba-after">
-                    <div class="ba-context">Chat</div>
-                    <div class="ba-label">What gets typed</div>
-                    <p class="ba-text">
-                        I'm running about 10 minutes late. Can you go ahead and order for me? Just get me the usual.
-                    </p>
+
+            <div class="mode-card transform">
+                <div class="mode-badge transform">Transform</div>
+                <h3>Speak casually. Get professional text.</h3>
+                <p>Fillers removed, grammar fixed, tone kept. Speak how you normally talk — Chill Pill handles the cleanup.</p>
+                <div class="mode-example">
+                    <div class="ex-label">You say</div>
+                    so <span class="filler">um</span> I wanted to check if the deploy went through <span class="filler">like</span> yesterday<br><br>
+                    <div class="ex-label">You get</div>
+                    <span class="out">I wanted to check if yesterday's deploy went through.</span>
                 </div>
             </div>
-            <!-- Document -->
-            <div class="ba-row">
-                <div class="ba-before">
-                    <div class="ba-context">Document</div>
-                    <div class="ba-label">What you said</div>
-                    <p class="ba-text">
-                        <span class="filler">so basically</span> the quarterly results show that <span class="filler">um</span> revenue increased by like 15 percent <span class="filler">which is you know</span> above our projections and <span class="filler">uh</span> the main driver was <span class="filler">I think</span> the new product line that <span class="filler">we like</span> launched in September
-                    </p>
-                </div>
-                <div class="ba-after">
-                    <div class="ba-context">Document</div>
-                    <div class="ba-label">What gets typed</div>
-                    <p class="ba-text">
-                        The quarterly results show that revenue increased by 15%, above our projections. The main driver was the new product line launched in September.
-                    </p>
+
+            <div class="mode-card translate">
+                <div class="mode-badge translate">Translate</div>
+                <h3>Hindi or Hinglish in, English out</h3>
+                <p>Switch languages mid-thought. Speak naturally in Hindi or Hinglish and get clean English text on the other side.</p>
+                <div class="mode-example">
+                    <div class="ex-label">You say</div>
+                    <span class="hi">deploy kal ho gaya tha kya?</span><br><br>
+                    <div class="ex-label">You get</div>
+                    <span class="out">Did the deploy happen yesterday?</span>
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- Before / After -->
+    <div class="ba-section">
+        <div class="section">
+            <div class="section-label">See the difference</div>
+            <h2>From messy to ready-to-send</h2>
+            <p class="section-sub">These are real examples — filler words and all.</p>
+
+            <div class="ba-examples">
+                <div class="ba-row">
+                    <div class="ba-col before">
+                        <div class="ba-context">Email &nbsp;·&nbsp; Transform mode</div>
+                        <div class="ba-tag">What you said</div>
+                        <p class="ba-text"><span class="filler">um</span> hey Sarah <span class="filler">so like</span> I wanted to follow up on the meeting <span class="filler">basically</span> I think we should <span class="filler">you know</span> move the deadline to next Friday <span class="filler">if that's like</span> okay</p>
+                    </div>
+                    <div class="ba-col after">
+                        <div class="ba-context">Email &nbsp;·&nbsp; Transform mode</div>
+                        <div class="ba-tag">What gets typed</div>
+                        <p class="ba-text">Hey Sarah, I wanted to follow up on the meeting. I think we should move the deadline to next Friday — let me know if that works.</p>
+                    </div>
+                </div>
+
+                <div class="ba-row">
+                    <div class="ba-col before">
+                        <div class="ba-context">Slack &nbsp;·&nbsp; Translate mode</div>
+                        <div class="ba-tag">What you said</div>
+                        <p class="ba-text hi">yaar kal wala PR merge hua kya? main check karna bhool gaya aur ab staging pe kuch issues aa rahe hain</p>
+                    </div>
+                    <div class="ba-col after">
+                        <div class="ba-context">Slack &nbsp;·&nbsp; Translate mode</div>
+                        <div class="ba-tag">What gets typed</div>
+                        <p class="ba-text">Hey, did yesterday's PR get merged? I forgot to check and now there are some issues on staging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- How it Works -->
-    <section class="steps-section" id="how-it-works">
-        <h2>Get started in 30 seconds</h2>
+    <section class="section" id="how-it-works">
+        <div class="section-label">Setup</div>
+        <h2>Running in under a minute</h2>
+        <p class="section-sub">No account. No API key. Just install and go.</p>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Download &amp; get free API key</h3>
-                <p>Install Chill Pill and grab a free key from Groq &mdash; takes 30 seconds.</p>
+                <h3>Install</h3>
+                <p>Download and run the installer. No sign-up, no configuration needed.</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>Paste your key into the pill</h3>
-                <p>Hover the pill, click "API Key", paste it in. Done.</p>
+                <h3>Set your hotkey</h3>
+                <p>The setup guide walks you through picking a hotkey and choosing your preferred mode.</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <h3>Press F9 and start talking</h3>
-                <p>Speak naturally. Clean text appears wherever your cursor is.</p>
+                <h3>Press and speak</h3>
+                <p>Hit your hotkey anywhere, say what you mean, hit it again. Text appears at your cursor.</p>
             </div>
         </div>
     </section>
 
     <!-- Bottom CTA -->
-    <section class="bottom-cta">
-        <p class="price">Stop typing. Start talking.</p>
-        <p class="price-note">Works with any app. Set up in 30 seconds.</p>
-    </section>
+    <div class="bottom-cta">
+        <h2>Stop typing. Start talking.</h2>
+        <p>Works in every app. Free to use.</p>
+        <a href="downloads/ChillPill_Setup.exe" class="btn-primary">
+            ⬇&nbsp; Download for Windows
+        </a>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
         <p>Chill Pill &mdash; Voice to text, the easy way.</p>
         <div class="footer-links">
             <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">Contact</a>
-            <a href="https://console.groq.com/keys" target="_blank">Get API Key</a>
             <a href="/privacy.html">Privacy Policy</a>
         </div>
     </footer>
 
-    <!-- Sticky download bar -->
+    <!-- Sticky bar -->
     <div class="sticky-bar">
-        <a href="downloads/ChillPill_Setup.exe" class="dl-btn windows">Download for Windows</a>
-        <a href="downloads/ChillPill_Mac.dmg" class="dl-btn mac">Download for Mac</a>
+        <a href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download — Windows</a>
+        <a href="#" class="dl-btn mac">Mac — coming soon</a>
     </div>
+
 </body>
 </html>
