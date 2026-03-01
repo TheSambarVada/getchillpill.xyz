@@ -628,7 +628,7 @@
                     <li>Works in any app</li>
                     <li>30 min/month dictation</li>
                 </ul>
-                <a href="downloads/ChillPill_Setup.exe" class="pricing-btn free">Download &amp; get started</a>
+                <a id="free-dl-btn" href="downloads/ChillPill_Setup.exe" class="pricing-btn free">Download &amp; get started</a>
             </div>
             <div class="pricing-card pro">
                 <div class="pricing-plan">Pro</div>
@@ -648,9 +648,9 @@
     <!-- Bottom CTA -->
     <div class="bottom-cta">
         <h2>Stop typing. Start talking.</h2>
-        <p>Works in every app. Free to use.</p>
-        <a href="downloads/ChillPill_Setup.exe" class="btn-primary">
-            ⬇&nbsp; Download for Windows
+        <p>Works in every app on Windows and Mac.</p>
+        <a id="cta-dl-btn" href="downloads/ChillPill_Setup.exe" class="btn-primary">
+            ⬇&nbsp; Download
         </a>
     </div>
 
@@ -665,9 +665,58 @@
 
     <!-- Sticky bar -->
     <div class="sticky-bar">
-        <a href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download — Windows</a>
-        <a href="#" class="dl-btn mac">Mac — coming soon</a>
+        <a id="sticky-dl-btn" href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download</a>
     </div>
+
+    <script>
+        (function () {
+            var ua = navigator.userAgent;
+            var isMac     = /Mac/i.test(ua) && !/iPhone|iPad/.test(ua);
+            var isWindows = /Windows/i.test(ua);
+            var isMobile  = /iPhone|iPad|Android/i.test(ua);
+
+            var WIN_URL = 'downloads/ChillPill_Setup.exe';
+            var MAC_URL = 'downloads/ChillPill_Mac.dmg'; // placeholder until Mac build ships
+
+            var stickyBtn = document.getElementById('sticky-dl-btn');
+            var ctaBtn    = document.getElementById('cta-dl-btn');
+            var freeBtn   = document.getElementById('free-dl-btn');
+
+            function setBtn(el, label, href, available) {
+                if (!el) return;
+                el.textContent = label;
+                if (available) {
+                    el.href = href;
+                    el.removeAttribute('onclick');
+                } else {
+                    el.href = '#';
+                    el.onclick = function(e) { e.preventDefault(); };
+                    el.style.opacity = '0.5';
+                    el.style.cursor = 'default';
+                }
+            }
+
+            if (isMobile) {
+                // Hide sticky bar on mobile — not supported
+                var bar = document.querySelector('.sticky-bar');
+                if (bar) bar.style.display = 'none';
+                setBtn(ctaBtn, 'Desktop only — Windows & Mac', '#', false);
+                setBtn(freeBtn, 'Desktop only — Windows & Mac', '#', false);
+            } else if (isMac) {
+                setBtn(stickyBtn, '⬇ Download for Mac', MAC_URL, false); // Mac build not shipped yet
+                setBtn(ctaBtn,    '⬇ Download for Mac', MAC_URL, false);
+                setBtn(freeBtn,   'Download for Mac',    MAC_URL, false);
+                // Update sticky btn label to "coming soon"
+                if (stickyBtn) stickyBtn.textContent = 'Mac — coming soon';
+                if (ctaBtn)    ctaBtn.textContent     = '⬇ Mac — coming soon';
+            } else {
+                // Windows or unknown — default
+                setBtn(stickyBtn, '⬇ Download for Windows', WIN_URL, true);
+                setBtn(ctaBtn,    '⬇ Download for Windows', WIN_URL, true);
+                setBtn(freeBtn,   'Download for Windows',    WIN_URL, true);
+            }
+        })();
+    </script>
 
 </body>
 </html>
