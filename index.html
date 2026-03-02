@@ -692,6 +692,14 @@
             return;
         }
 
+        // Auto-scroll to pricing section so the button is visible
+        var pricingSection = document.getElementById('pricing');
+        if (pricingSection) {
+            setTimeout(function () {
+                pricingSection.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
         btn.onclick = async function () {
             btn.textContent = 'Loading\u2026';
             btn.disabled = true;
