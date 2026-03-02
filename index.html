@@ -640,7 +640,10 @@
                     <li>Priority transcription speed</li>
                     <li>Early access to new features</li>
                 </ul>
-                <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank" class="pricing-btn pro-btn">Subscribe — ₹99/mo</a>
+                <button id="subscribe-btn" class="pricing-btn pro-btn">Subscribe — ₹99/mo</button>
+                <p id="subscribe-success" style="display:none; text-align:center; color:#3fb950; margin-top:12px; font-size:14px;">
+                    You're subscribed! Restart Chill Pill to activate Pro.
+                </p>
             </div>
         </div>
     </section>
@@ -667,6 +670,66 @@
     <div class="sticky-bar">
         <a id="sticky-dl-btn" href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download</a>
     </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+    (function () {
+        var btn = document.getElementById('subscribe-btn');
+        if (!btn) return;
+
+        var hash   = window.location.hash.slice(1);
+        var params = new URLSearchParams(hash);
+        var token  = params.get('token');
+
+        if (!token) {
+            btn.textContent = 'Open Chill Pill to Subscribe';
+            btn.style.opacity = '0.6';
+            btn.style.cursor  = 'default';
+            btn.onclick = function () {
+                alert('Open the Chill Pill app and click "Upgrade to Pro" to subscribe.');
+            };
+            return;
+        }
+
+        btn.onclick = async function () {
+            btn.textContent = 'Loading\u2026';
+            btn.disabled = true;
+            try {
+                var resp = await fetch(
+                    'https://web-production-050e5.up.railway.app/create-subscription',
+                    { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } }
+                );
+                if (!resp.ok) throw new Error(await resp.text());
+                var data = await resp.json();
+                var subscription_id = data.subscription_id;
+                var key_id          = data.key_id;
+
+                var rzp = new Razorpay({
+                    key: key_id,
+                    subscription_id: subscription_id,
+                    name: 'Chill Pill',
+                    description: 'Pro \u2014 Unlimited dictation',
+                    theme: { color: '#22c55e' },
+                    handler: function () {
+                        btn.textContent = '\u2713 Subscribed!';
+                        btn.style.background = '#1a7a1a';
+                        btn.disabled = true;
+                        var msg = document.getElementById('subscribe-success');
+                        if (msg) msg.style.display = 'block';
+                    }
+                });
+                rzp.open();
+                btn.textContent = 'Subscribe \u2014 \u20b999/mo';
+                btn.disabled = false;
+            } catch (e) {
+                btn.textContent = 'Error \u2014 try again';
+                btn.disabled = false;
+                console.error(e);
+            }
+        };
+    })();
+    </script>
 
     <script>
         (function () {
