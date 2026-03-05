@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chill Pill — Voice dictation that actually works</title>
+    <title>Chill Pill — Talk. It types.</title>
     <link rel="icon" type="image/x-icon" href="chillpill.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #08080f;
             color: #e0e0e8;
             min-height: 100vh;
@@ -30,120 +33,187 @@
             gap: 10px;
             text-decoration: none;
         }
-        .nav-logo img { width: 48px; height: 48px; }
-        .nav-logo span { font-size: 19px; font-weight: 700; color: #e0e0e8; }
-        .nav-links { display: flex; gap: 28px; }
+        .nav-logo img { width: 40px; height: 40px; }
+        .nav-logo span { font-size: 17px; font-weight: 700; color: #e0e0e8; letter-spacing: -0.3px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
         .nav-links a {
-            color: #666;
+            color: #555;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
             transition: color 0.2s;
         }
         .nav-links a:hover { color: #e0e0e8; }
 
         /* ── Hero ── */
         .hero {
-            max-width: 1100px;
+            max-width: 820px;
             margin: 0 auto;
-            padding: 20px 40px 0;
+            padding: 72px 40px 0;
             text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(ellipse at center top, rgba(124,58,237,0.12) 0%, transparent 70%);
+            pointer-events: none;
         }
         .hero-eyebrow {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #22c55e;
-            margin-bottom: 20px;
+            color: #7c3aed;
+            background: rgba(124,58,237,0.1);
+            border: 1px solid rgba(124,58,237,0.2);
+            padding: 5px 14px;
+            border-radius: 99px;
+            margin-bottom: 28px;
         }
         .hero h1 {
-            font-size: 54px;
-            font-weight: 800;
-            line-height: 1.12;
-            margin-bottom: 20px;
-            color: #f0f0f8;
+            font-size: 68px;
+            font-weight: 900;
+            line-height: 1.06;
+            margin-bottom: 24px;
+            color: #f4f4fc;
+            letter-spacing: -2.5px;
         }
         .hero h1 em {
             font-style: normal;
-            background: linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #38bdf8 100%);
+            background: linear-gradient(135deg, #a78bfa 0%, #818cf8 45%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .hero .tagline {
-            font-size: 18px;
-            color: #888;
-            max-width: 520px;
-            margin: 0 auto 0;
+            font-size: 19px;
+            color: #7a7a8a;
+            max-width: 560px;
+            margin: 0 auto 36px;
             line-height: 1.65;
+            font-weight: 400;
+        }
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
         }
         .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 15px 34px;
+            padding: 15px 32px;
             background: #22c55e;
             color: #fff;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 10px;
             text-decoration: none;
             transition: transform 0.15s, box-shadow 0.15s;
-            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.28);
+            box-shadow: 0 6px 24px rgba(34,197,94,0.3);
+            letter-spacing: -0.2px;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 32px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 12px 36px rgba(34,197,94,0.42);
         }
+        .hero-trust {
+            font-size: 13px;
+            color: #444;
+            font-weight: 500;
+        }
+        .hero-trust span { color: #555; }
+        .hero-trust span + span::before { content: ' · '; color: #333; }
         .hero-visual {
-            margin-top: 0;
+            margin-top: 56px;
+            position: relative;
         }
         .hero-visual img {
             width: 100%;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(124,58,237,0.08);
         }
+
+        /* ── Stats strip ── */
+        .stats-strip {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .stat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 99px;
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .stat-pill strong { color: #999; font-weight: 600; }
 
         /* ── Compat bar ── */
         .compat-bar {
             text-align: center;
-            padding: 24px 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 20px 40px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
-        .compat-bar p { font-size: 13px; color: #555; }
-        .compat-bar span { color: #777; }
+        .compat-bar p { font-size: 13px; color: #3d3d4f; }
+        .compat-bar span { color: #555; font-weight: 500; }
 
         /* ── Section shell ── */
         .section {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 88px 40px;
+            padding: 96px 40px;
         }
         .section-label {
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 2.5px;
             text-transform: uppercase;
-            color: #555;
+            color: #444;
             text-align: center;
             margin-bottom: 14px;
         }
         .section h2 {
-            font-size: 34px;
-            font-weight: 700;
+            font-size: 38px;
+            font-weight: 800;
             text-align: center;
             color: #f0f0f8;
             margin-bottom: 12px;
-            line-height: 1.2;
+            line-height: 1.18;
+            letter-spacing: -1px;
         }
         .section .section-sub {
             text-align: center;
             font-size: 16px;
-            color: #666;
-            margin-bottom: 52px;
+            color: #555;
+            margin-bottom: 56px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* ── Modes ── */
@@ -153,97 +223,98 @@
             gap: 16px;
         }
         .mode-card {
-            background: #0f0f1a;
+            background: #0d0d1c;
             border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 14px;
-            padding: 28px 24px;
+            border-radius: 16px;
+            padding: 30px 26px;
             position: relative;
             overflow: hidden;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
         }
-        .mode-card:hover {
-            transform: translateY(-3px);
-        }
+        .mode-card:hover { transform: translateY(-4px); }
         .mode-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 3px;
-            border-radius: 14px 14px 0 0;
+            border-radius: 16px 16px 0 0;
         }
-        .mode-card.transcribe::before { background: #a855f7; }
-        .mode-card.transform::before  { background: #22c55e; }
-        .mode-card.translate::before  { background: #3b82f6; }
-        .mode-card:hover.transcribe { border-color: rgba(168,85,247,0.3); }
-        .mode-card:hover.transform  { border-color: rgba(34,197,94,0.3); }
-        .mode-card:hover.translate  { border-color: rgba(59,130,246,0.3); }
+        .mode-card.transcribe::before { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+        .mode-card.transform::before  { background: linear-gradient(90deg, #16a34a, #22c55e); }
+        .mode-card.translate::before  { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+        .mode-card:hover.transcribe { border-color: rgba(168,85,247,0.25); box-shadow: 0 12px 40px rgba(124,58,237,0.1); }
+        .mode-card:hover.transform  { border-color: rgba(34,197,94,0.25);  box-shadow: 0 12px 40px rgba(34,197,94,0.08); }
+        .mode-card:hover.translate  { border-color: rgba(59,130,246,0.25); box-shadow: 0 12px 40px rgba(59,130,246,0.08); }
 
         .mode-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
             padding: 4px 10px;
             border-radius: 6px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
-        .mode-badge.transcribe { background: rgba(168,85,247,0.12); color: #a855f7; }
-        .mode-badge.transform  { background: rgba(34,197,94,0.12);  color: #22c55e; }
-        .mode-badge.translate  { background: rgba(59,130,246,0.12); color: #60a5fa; }
+        .mode-badge.transcribe { background: rgba(168,85,247,0.1); color: #a855f7; }
+        .mode-badge.transform  { background: rgba(34,197,94,0.1);  color: #22c55e; }
+        .mode-badge.translate  { background: rgba(59,130,246,0.1); color: #60a5fa; }
 
         .mode-card h3 {
             font-size: 17px;
-            font-weight: 600;
-            color: #e0e0e8;
-            margin-bottom: 8px;
+            font-weight: 700;
+            color: #e8e8f0;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
         }
         .mode-card p {
             font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 18px;
+            color: #555;
+            line-height: 1.65;
+            margin-bottom: 20px;
         }
         .mode-example {
-            background: #161622;
-            border-radius: 8px;
-            padding: 12px 14px;
+            background: #0a0a16;
+            border-radius: 10px;
+            padding: 14px 16px;
             font-size: 13px;
-            color: #888;
-            line-height: 1.55;
+            color: #777;
+            line-height: 1.6;
             border: 1px solid rgba(255,255,255,0.05);
         }
         .mode-example .ex-label {
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             margin-bottom: 5px;
         }
-        .mode-card.transcribe .ex-label { color: #7c3aed; }
-        .mode-card.transform .ex-label  { color: #16a34a; }
-        .mode-card.translate .ex-label  { color: #2563eb; }
+        .mode-card.transcribe .ex-label { color: #6d28d9; }
+        .mode-card.transform .ex-label  { color: #15803d; }
+        .mode-card.translate .ex-label  { color: #1d4ed8; }
         .mode-example .filler {
             color: #ef4444;
             text-decoration: line-through;
-            opacity: 0.7;
+            opacity: 0.65;
         }
-        .mode-example .out { color: #d1d5db; }
+        .mode-example .out { color: #c8c8d8; }
 
         /* ── Before/After ── */
-        .ba-section { background: #0c0c15; }
-        .ba-section .section { padding: 88px 40px; }
+        .ba-section { background: #060610; }
+        .ba-section .section { padding: 96px 40px; }
 
-        .ba-examples { display: flex; flex-direction: column; gap: 20px; }
+        .ba-examples { display: flex; flex-direction: column; gap: 16px; }
         .ba-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.06);
         }
-        .ba-col { padding: 24px 28px; background: #0f0f1a; }
+        .ba-col { padding: 28px 32px; background: #0d0d1c; }
         .ba-col + .ba-col { border-left: 1px solid rgba(255,255,255,0.06); }
         .ba-tag {
             font-size: 10px;
@@ -252,65 +323,61 @@
             text-transform: uppercase;
             margin-bottom: 6px;
         }
-        .ba-col.before .ba-tag { color: #ef4444; }
-        .ba-col.after  .ba-tag { color: #22c55e; }
+        .ba-col.before .ba-tag { color: #7f1d1d; }
+        .ba-col.after  .ba-tag { color: #14532d; }
         .ba-context {
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #444;
-            margin-bottom: 12px;
+            color: #333;
+            margin-bottom: 14px;
         }
-        .ba-text { font-size: 14px; line-height: 1.7; color: #aaa; }
-        .ba-text .filler { color: #ef4444; text-decoration: line-through; opacity: 0.7; }
-        .ba-text .hi { color: #888; font-style: italic; }
-        .ba-text .en { color: #60a5fa; }
+        .ba-text { font-size: 14px; line-height: 1.75; color: #888; }
+        .ba-text .filler { color: #ef4444; text-decoration: line-through; opacity: 0.6; }
+        .ba-text .hi { color: #777; font-style: italic; }
+        .ba-col.after .ba-text { color: #bbbbc8; }
 
         /* ── Steps ── */
         .steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: calc(16.67% + 20px);
+            right: calc(16.67% + 20px);
+            height: 1px;
+            background: rgba(255,255,255,0.06);
         }
         .step {
             text-align: center;
-            padding: 28px 20px;
-            background: #0f0f1a;
+            padding: 32px 24px;
+            background: #0d0d1c;
             border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 14px;
+            border-radius: 16px;
+            position: relative;
         }
         .step-number {
-            width: 40px;
-            height: 40px;
-            background: rgba(34,197,94,0.1);
-            border: 1px solid rgba(34,197,94,0.25);
+            width: 42px;
+            height: 42px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            font-weight: 700;
-            color: #22c55e;
-            margin: 0 auto 16px;
-        }
-        .step h3 { font-size: 15px; font-weight: 600; color: #e0e0e8; margin-bottom: 8px; }
-        .step p { font-size: 13px; color: #666; line-height: 1.55; }
-
-        /* ── Bottom CTA ── */
-        .bottom-cta {
-            text-align: center;
-            padding: 80px 40px;
-            background: #0c0c15;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        .bottom-cta h2 {
-            font-size: 38px;
+            font-size: 15px;
             font-weight: 800;
-            color: #f0f0f8;
-            margin-bottom: 10px;
+            color: #22c55e;
+            margin: 0 auto 18px;
         }
-        .bottom-cta p { font-size: 16px; color: #666; margin-bottom: 32px; }
+        .step h3 { font-size: 15px; font-weight: 700; color: #e0e0e8; margin-bottom: 8px; letter-spacing: -0.2px; }
+        .step p { font-size: 13px; color: #555; line-height: 1.6; }
 
         /* ── Pricing ── */
         .pricing-grid {
@@ -321,99 +388,150 @@
             margin: 0 auto;
         }
         .pricing-card {
-            background: #0f0f1a;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 36px 32px;
+            background: #0d0d1c;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 18px;
+            padding: 40px 36px;
             display: flex;
             flex-direction: column;
-            gap: 0;
         }
         .pricing-card.pro {
-            border-color: rgba(34,197,94,0.3);
-            background: linear-gradient(160deg, #0f1a12 0%, #0f0f1a 60%);
+            border-color: rgba(34,197,94,0.25);
+            background: linear-gradient(160deg, #0d1a10 0%, #0d0d1c 55%);
+            position: relative;
+        }
+        .pricing-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: #022a0f;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 99px;
+            white-space: nowrap;
         }
         .pricing-plan {
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #555;
-            margin-bottom: 14px;
+            color: #444;
+            margin-bottom: 16px;
         }
         .pricing-card.pro .pricing-plan { color: #22c55e; }
         .pricing-price {
-            font-size: 42px;
-            font-weight: 800;
+            font-size: 48px;
+            font-weight: 900;
             color: #f0f0f8;
             line-height: 1;
             margin-bottom: 4px;
+            letter-spacing: -2px;
         }
         .pricing-price span {
             font-size: 16px;
             font-weight: 400;
-            color: #555;
+            color: #444;
+            letter-spacing: 0;
         }
         .pricing-note {
             font-size: 13px;
-            color: #555;
-            margin-bottom: 28px;
+            color: #444;
+            margin-bottom: 32px;
+            font-weight: 500;
         }
         .pricing-features {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 32px;
+            gap: 12px;
+            margin-bottom: 36px;
             flex: 1;
         }
         .pricing-features li {
             font-size: 14px;
-            color: #888;
+            color: #777;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
+            line-height: 1.45;
         }
         .pricing-features li::before {
             content: '✓';
-            font-size: 13px;
-            color: #444;
+            font-size: 12px;
+            color: #333;
             flex-shrink: 0;
+            margin-top: 1px;
         }
+        .pricing-card.pro .pricing-features li { color: #999; }
         .pricing-card.pro .pricing-features li::before { color: #22c55e; }
         .pricing-btn {
             display: block;
             text-align: center;
-            padding: 13px 24px;
+            padding: 14px 24px;
             border-radius: 10px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             transition: transform 0.15s, box-shadow 0.15s;
+            letter-spacing: -0.2px;
+            border: none;
+            cursor: pointer;
         }
         .pricing-btn:hover { transform: translateY(-2px); }
         .pricing-btn.free {
-            background: rgba(255,255,255,0.05);
-            color: #aaa;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: #888;
+            border: 1px solid rgba(255,255,255,0.09);
         }
-        .pricing-btn.free:hover { background: rgba(255,255,255,0.09); }
+        .pricing-btn.free:hover { background: rgba(255,255,255,0.08); color: #aaa; }
         .pricing-btn.pro-btn {
             background: #22c55e;
             color: #fff;
-            box-shadow: 0 6px 20px rgba(34,197,94,0.25);
+            box-shadow: 0 6px 20px rgba(34,197,94,0.28);
         }
-        .pricing-btn.pro-btn:hover { box-shadow: 0 10px 28px rgba(34,197,94,0.4); }
+        .pricing-btn.pro-btn:hover { box-shadow: 0 12px 32px rgba(34,197,94,0.42); }
+
+        /* ── Bottom CTA ── */
+        .bottom-cta {
+            text-align: center;
+            padding: 96px 40px 80px;
+            background: #060610;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .bottom-cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse at center bottom, rgba(34,197,94,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .bottom-cta h2 {
+            font-size: 48px;
+            font-weight: 900;
+            color: #f0f0f8;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+        .bottom-cta p { font-size: 16px; color: #555; margin-bottom: 36px; font-weight: 400; }
 
         /* ── Sticky bar ── */
         .sticky-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             z-index: 100;
-            background: rgba(8,8,15,0.94);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(255,255,255,0.07);
+            background: rgba(8,8,15,0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255,255,255,0.06);
             padding: 14px 40px;
             display: flex;
             align-items: center;
@@ -426,51 +544,54 @@
             gap: 7px;
             padding: 10px 26px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 8px;
             text-decoration: none;
             transition: transform 0.15s, box-shadow 0.15s;
+            letter-spacing: -0.2px;
         }
         .sticky-bar .dl-btn:hover { transform: translateY(-1px); }
         .sticky-bar .dl-btn.windows {
             background: #22c55e;
             color: #fff;
-            box-shadow: 0 4px 16px rgba(34,197,94,0.25);
+            box-shadow: 0 4px 16px rgba(34,197,94,0.28);
         }
-        .sticky-bar .dl-btn.windows:hover { box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
+        .sticky-bar .dl-btn.windows:hover { box-shadow: 0 6px 22px rgba(34,197,94,0.42); }
         .sticky-bar .dl-btn.mac {
             background: rgba(255,255,255,0.04);
-            color: #999;
-            border: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+            border: 1px solid rgba(255,255,255,0.09);
         }
-        .sticky-bar .dl-btn.mac:hover { background: rgba(255,255,255,0.09); }
+        .sticky-bar .dl-btn.mac:hover { background: rgba(255,255,255,0.08); }
 
         /* ── Footer ── */
         .footer {
             text-align: center;
-            padding: 28px 40px 88px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 28px 40px 96px;
+            border-top: 1px solid rgba(255,255,255,0.04);
         }
-        .footer p { font-size: 13px; color: #444; }
-        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
-        .footer a { color: #555; text-decoration: none; font-size: 13px; transition: color 0.2s; }
-        .footer a:hover { color: #e0e0e8; }
+        .footer p { font-size: 13px; color: #333; font-weight: 500; }
+        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 24px; }
+        .footer a { color: #3a3a4a; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer a:hover { color: #888; }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 34px; }
-            .hero { padding: 44px 20px 0; }
+            .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
+            .hero { padding: 48px 20px 0; }
             .nav { padding: 16px 20px; }
             .nav-links { gap: 16px; }
-            .section { padding: 60px 20px; }
+            .section { padding: 64px 20px; }
             .modes-grid { grid-template-columns: 1fr; }
-            .steps { grid-template-columns: 1fr; gap: 12px; }
+            .steps { grid-template-columns: 1fr; }
+            .steps::before { display: none; }
             .ba-row { grid-template-columns: 1fr; }
             .ba-col + .ba-col { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
             .pricing-grid { grid-template-columns: 1fr; }
             .sticky-bar { padding: 12px 16px; gap: 8px; }
             .sticky-bar .dl-btn { padding: 10px 18px; font-size: 13px; }
-            .bottom-cta h2 { font-size: 28px; }
+            .bottom-cta h2 { font-size: 34px; letter-spacing: -1px; }
+            .stats-strip { gap: 8px; padding: 28px 20px; }
         }
     </style>
 </head>
@@ -491,33 +612,50 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-visual">
-            <img src="cover.png" alt="Chill Pill: speak into mic, AI cleans your text, polished output appears">
-        </div>
-        <span class="hero-eyebrow" style="margin-top:48px;display:block;">AI Voice Dictation</span>
-        <h1>Speak freely.<br><em>Get perfect text.</em></h1>
+        <span class="hero-eyebrow">Voice dictation for Windows &amp; Mac</span>
+        <h1>Talk.<br><em>Chill Pill types.</em></h1>
         <p class="tagline">
-            Press a hotkey, say what you mean, and Chill Pill pastes polished text wherever your cursor is.
+            Press a hotkey anywhere on your computer, say what's on your mind, and perfectly formatted text appears at your cursor — in Gmail, Slack, Notion, or any app.
         </p>
+        <div class="hero-cta">
+            <a id="hero-dl-btn" href="downloads/ChillPill_Setup.exe" class="btn-primary">⬇&nbsp; Download Free</a>
+        </div>
+        <div class="hero-trust">
+            <span>Free plan included</span>
+            <span>No credit card</span>
+            <span>Windows &amp; Mac</span>
+        </div>
+        <div class="hero-visual">
+            <img src="cover.png" alt="Chill Pill in action — press hotkey, speak, text appears">
+        </div>
     </section>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+        <div class="stat-pill"><strong>~150 wpm</strong> speaking speed</div>
+        <div class="stat-pill">vs <strong>40 wpm</strong> average typing</div>
+        <div class="stat-pill">Works in <strong>any app</strong></div>
+        <div class="stat-pill">Hindi, Tamil, Marathi <strong>&amp; more</strong></div>
+        <div class="stat-pill"><strong>Free</strong> to start</div>
+    </div>
 
     <!-- Compat bar -->
     <div class="compat-bar">
-        <p>Works with <span>Gmail, WhatsApp, Slack, Google Docs, VS Code, Notion</span> &mdash; anywhere you type</p>
+        <p>Works seamlessly with <span>Gmail · WhatsApp · Slack · Google Docs · VS Code · Notion · Word</span> — and everywhere else you type</p>
     </div>
 
     <!-- Modes -->
     <section class="section" id="modes">
         <div class="section-label">Three modes</div>
         <h2>One hotkey. Three superpowers.</h2>
-        <p class="section-sub">Tap the mode button in the pill to switch. No settings buried in menus.</p>
+        <p class="section-sub">Switch modes with a tap. No settings, no menus, no friction.</p>
 
         <div class="modes-grid">
 
             <div class="mode-card transcribe">
                 <div class="mode-badge transcribe">Transcribe</div>
-                <h3>Exact words, exactly typed</h3>
-                <p>What you say is what gets pasted. Nothing added, nothing removed. Great for notes, quotes, or code comments.</p>
+                <h3>Every word, exactly as you said it</h3>
+                <p>Raw, verbatim output. What you say is what gets typed — nothing cleaned up, nothing added. Perfect for capturing quotes, notes, or dictating code comments.</p>
                 <div class="mode-example">
                     <div class="ex-label">Output</div>
                     <span class="out">So um I wanted to check if the deploy went through</span>
@@ -526,8 +664,8 @@
 
             <div class="mode-card transform">
                 <div class="mode-badge transform">Transform</div>
-                <h3>Speak casually. Get professional text.</h3>
-                <p>Fillers removed, grammar fixed, tone kept. Speak how you normally talk — Chill Pill handles the cleanup.</p>
+                <h3>Speak casually. Sound professional.</h3>
+                <p>Fillers removed, grammar fixed, tone preserved. Say it the way you'd say it to a friend — Chill Pill turns it into something you'd actually send.</p>
                 <div class="mode-example">
                     <div class="ex-label">You say</div>
                     so <span class="filler">um</span> I wanted to check if the deploy went through <span class="filler">like</span> yesterday<br><br>
@@ -538,8 +676,8 @@
 
             <div class="mode-card translate">
                 <div class="mode-badge translate">Translate</div>
-                <h3>Hindi or Hinglish in, English out</h3>
-                <p>Switch languages mid-thought. Speak naturally in Hindi or Hinglish and get clean English text on the other side.</p>
+                <h3>Any Indian language in, English out</h3>
+                <p>Switch languages mid-thought. Speak in Hindi, Hinglish, Tamil, Marathi — Chill Pill delivers fluent English on the other end. No switching apps, no copy-pasting.</p>
                 <div class="mode-example">
                     <div class="ex-label">You say</div>
                     <span class="hi">deploy kal ho gaya tha kya?</span><br><br>
@@ -556,7 +694,7 @@
         <div class="section">
             <div class="section-label">See the difference</div>
             <h2>From messy to ready-to-send</h2>
-            <p class="section-sub">These are real examples — filler words and all.</p>
+            <p class="section-sub">Real examples. No tricks.</p>
 
             <div class="ba-examples">
                 <div class="ba-row">
@@ -591,23 +729,23 @@
     <!-- How it Works -->
     <section class="section" id="how-it-works">
         <div class="section-label">Setup</div>
-        <h2>Running in under a minute</h2>
-        <p class="section-sub">No account. No API key. Just install and go.</p>
+        <h2>Up and running in 60 seconds</h2>
+        <p class="section-sub">Create a free account, pick a hotkey, and start talking. That's it.</p>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>Install</h3>
-                <p>Download and run the installer. No sign-up, no configuration needed.</p>
+                <h3>Install &amp; sign up</h3>
+                <p>Download the installer and create a free account. Takes under a minute — no configuration required.</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <h3>Set your hotkey</h3>
-                <p>The setup guide walks you through picking a hotkey and choosing your preferred mode.</p>
+                <h3>Pick your hotkey</h3>
+                <p>The setup guide walks you through choosing a hotkey and your preferred mode — Transcribe, Transform, or Translate.</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
                 <h3>Press and speak</h3>
-                <p>Hit your hotkey anywhere, say what you mean, hit it again. Text appears at your cursor.</p>
+                <p>Hit your hotkey anywhere, say what you mean, hit it again. Polished text appears at your cursor instantly.</p>
             </div>
         </div>
     </section>
@@ -616,32 +754,34 @@
     <section class="section" id="pricing">
         <div class="section-label">Pricing</div>
         <h2>Simple, honest pricing.</h2>
-        <p class="section-sub">Start free. Upgrade when you need more.</p>
+        <p class="section-sub">Start free. Upgrade only when you need more.</p>
 
         <div class="pricing-grid">
             <div class="pricing-card">
                 <div class="pricing-plan">Free</div>
                 <div class="pricing-price">₹0 <span></span></div>
-                <div class="pricing-note">30 minutes every month</div>
+                <div class="pricing-note">30 minutes every month, always</div>
                 <ul class="pricing-features">
                     <li>All three modes — Transcribe, Transform, Translate</li>
-                    <li>Works in any app</li>
+                    <li>Works in any app on your computer</li>
+                    <li>Hindi, Tamil, Marathi &amp; more</li>
                     <li>30 min/month dictation</li>
                 </ul>
                 <a id="free-dl-btn" href="downloads/ChillPill_Setup.exe" class="pricing-btn free">Download &amp; get started</a>
             </div>
             <div class="pricing-card pro">
+                <div class="pricing-popular">Most popular</div>
                 <div class="pricing-plan">Pro</div>
                 <div class="pricing-price">₹99 <span>/ month</span></div>
                 <div class="pricing-note">Billed monthly &nbsp;·&nbsp; cancel any time</div>
                 <ul class="pricing-features">
                     <li>Everything in Free</li>
-                    <li>Unlimited dictation minutes</li>
+                    <li>Unlimited dictation — no monthly cap</li>
                     <li>Priority transcription speed</li>
                     <li>Early access to new features</li>
                 </ul>
                 <button id="subscribe-btn" class="pricing-btn pro-btn">Subscribe — ₹99/mo</button>
-                <p id="subscribe-success" style="display:none; text-align:center; color:#3fb950; margin-top:12px; font-size:14px;">
+                <p id="subscribe-success" style="display:none; text-align:center; color:#3fb950; margin-top:14px; font-size:14px; font-weight:500;">
                     You're subscribed! Restart Chill Pill to activate Pro.
                 </p>
             </div>
@@ -650,16 +790,16 @@
 
     <!-- Bottom CTA -->
     <div class="bottom-cta">
-        <h2>Stop typing. Start talking.</h2>
-        <p>Works in every app on Windows and Mac.</p>
+        <h2>Stop typing.<br>Start talking.</h2>
+        <p>Free for 30 minutes a month. Pro is ₹99. No commitment.</p>
         <a id="cta-dl-btn" href="downloads/ChillPill_Setup.exe" class="btn-primary">
-            ⬇&nbsp; Download
+            ⬇&nbsp; Download Free
         </a>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>Chill Pill &mdash; Voice to text, the easy way.</p>
+        <p>Chill Pill &mdash; Turn your voice into text, anywhere.</p>
         <div class="footer-links">
             <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">Contact</a>
             <a href="/privacy.html">Privacy Policy</a>
@@ -668,7 +808,7 @@
 
     <!-- Sticky bar -->
     <div class="sticky-bar">
-        <a id="sticky-dl-btn" href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download</a>
+        <a id="sticky-dl-btn" href="downloads/ChillPill_Setup.exe" class="dl-btn windows">⬇ Download Free</a>
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -692,7 +832,6 @@
             return;
         }
 
-        // Auto-scroll to pricing section so the button is visible
         var pricingSection = document.getElementById('pricing');
         if (pricingSection) {
             setTimeout(function () {
@@ -721,7 +860,7 @@
                     theme: { color: '#22c55e' },
                     handler: function () {
                         btn.textContent = '\u2713 Subscribed!';
-                        btn.style.background = '#1a7a1a';
+                        btn.style.background = '#166534';
                         btn.disabled = true;
                         var msg = document.getElementById('subscribe-success');
                         if (msg) msg.style.display = 'block';
@@ -747,11 +886,12 @@
             var isMobile  = /iPhone|iPad|Android/i.test(ua);
 
             var WIN_URL = 'downloads/ChillPill_Setup.exe';
-            var MAC_URL = 'downloads/ChillPill_Mac.dmg'; // placeholder until Mac build ships
+            var MAC_URL = 'downloads/ChillPill_Mac.dmg';
 
             var stickyBtn = document.getElementById('sticky-dl-btn');
             var ctaBtn    = document.getElementById('cta-dl-btn');
             var freeBtn   = document.getElementById('free-dl-btn');
+            var heroBtn   = document.getElementById('hero-dl-btn');
 
             function setBtn(el, label, href, available) {
                 if (!el) return;
@@ -759,32 +899,32 @@
                 if (available) {
                     el.href = href;
                     el.removeAttribute('onclick');
+                    el.style.opacity = '';
+                    el.style.cursor  = '';
                 } else {
                     el.href = '#';
                     el.onclick = function(e) { e.preventDefault(); };
                     el.style.opacity = '0.5';
-                    el.style.cursor = 'default';
+                    el.style.cursor  = 'default';
                 }
             }
 
             if (isMobile) {
-                // Hide sticky bar on mobile — not supported
                 var bar = document.querySelector('.sticky-bar');
                 if (bar) bar.style.display = 'none';
-                setBtn(ctaBtn, 'Desktop only — Windows & Mac', '#', false);
+                setBtn(ctaBtn,  'Desktop only — Windows & Mac', '#', false);
                 setBtn(freeBtn, 'Desktop only — Windows & Mac', '#', false);
+                setBtn(heroBtn, 'Desktop only — Windows & Mac', '#', false);
             } else if (isMac) {
-                setBtn(stickyBtn, '⬇ Download for Mac', MAC_URL, false); // Mac build not shipped yet
-                setBtn(ctaBtn,    '⬇ Download for Mac', MAC_URL, false);
-                setBtn(freeBtn,   'Download for Mac',    MAC_URL, false);
-                // Update sticky btn label to "coming soon"
-                if (stickyBtn) stickyBtn.textContent = 'Mac — coming soon';
-                if (ctaBtn)    ctaBtn.textContent     = '⬇ Mac — coming soon';
+                setBtn(stickyBtn, 'Mac — coming soon',         MAC_URL, false);
+                setBtn(ctaBtn,    '⬇ Download Free for Mac',  MAC_URL, false);
+                setBtn(freeBtn,   'Download for Mac',           MAC_URL, false);
+                setBtn(heroBtn,   '⬇ Download Free for Mac',  MAC_URL, false);
             } else {
-                // Windows or unknown — default
-                setBtn(stickyBtn, '⬇ Download for Windows', WIN_URL, true);
-                setBtn(ctaBtn,    '⬇ Download for Windows', WIN_URL, true);
-                setBtn(freeBtn,   'Download for Windows',    WIN_URL, true);
+                setBtn(stickyBtn, '⬇ Download Free for Windows', WIN_URL, true);
+                setBtn(ctaBtn,    '⬇ Download Free for Windows', WIN_URL, true);
+                setBtn(freeBtn,   'Download for Windows',          WIN_URL, true);
+                setBtn(heroBtn,   '⬇ Download Free for Windows',  WIN_URL, true);
             }
         })();
     </script>
