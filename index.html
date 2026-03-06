@@ -911,9 +911,6 @@
     <div class="bottom-cta">
         <h2>Stop typing.<br>Start talking.</h2>
         <p>Free for 30 minutes a month. Pro is ₹99. No commitment.</p>
-        <a id="cta-dl-btn" href="downloads/ChillPill_Setup.exe" class="btn-primary">
-            ⬇&nbsp; Download Free
-        </a>
     </div>
 
     <!-- Footer -->
@@ -1011,7 +1008,7 @@
             var MAC_URL = 'downloads/ChillPill_Mac.dmg';
 
             var stickyBtn = document.getElementById('sticky-dl-btn');
-            var ctaBtn    = document.getElementById('cta-dl-btn');
+
             var freeBtn   = document.getElementById('free-dl-btn');
             var heroBtn   = document.getElementById('hero-dl-btn');
 
@@ -1034,17 +1031,17 @@
             if (isMobile) {
                 var bar = document.querySelector('.sticky-bar');
                 if (bar) bar.style.display = 'none';
-                setBtn(ctaBtn,  'Desktop only — Windows & Mac', '#', false);
+
                 setBtn(freeBtn, 'Desktop only — Windows & Mac', '#', false);
                 setBtn(heroBtn, 'Desktop only — Windows & Mac', '#', false);
             } else if (isMac) {
                 setBtn(stickyBtn, 'Mac — coming soon',         MAC_URL, false);
-                setBtn(ctaBtn,    '⬇ Download Free for Mac',  MAC_URL, false);
+
                 setBtn(freeBtn,   'Download for Mac',           MAC_URL, false);
                 setBtn(heroBtn,   '⬇ Download Free for Mac',  MAC_URL, false);
             } else {
                 setBtn(stickyBtn, '⬇ Download Free for Windows', WIN_URL, true);
-                setBtn(ctaBtn,    '⬇ Download Free for Windows', WIN_URL, true);
+
                 setBtn(freeBtn,   'Download for Windows',          WIN_URL, true);
                 setBtn(heroBtn,   '⬇ Download Free for Windows',  WIN_URL, true);
             }
