@@ -650,6 +650,154 @@
         <h2>One hotkey. Three superpowers.</h2>
         <p class="section-sub">Switch modes with a tap. No settings, no menus, no friction.</p>
 
+        <!-- Pill mode-switcher animation -->
+        <style>
+        .pd-wrap{display:flex;flex-direction:column;align-items:center;margin:28px 0 44px;}
+        .pd-screen{position:relative;width:100%;max-width:520px;height:250px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:14px;overflow:hidden;cursor:default;}
+        .pd-line{position:absolute;height:7px;background:#141414;border-radius:4px;}
+        /* Pill widget */
+        .pw{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;width:112px;height:28px;background:#151515;border:1px solid #3a3a3a;border-radius:14px;overflow:hidden;transition:height .32s cubic-bezier(.34,1.15,.64,1);}
+        .pw.open{height:120px;}
+        /* Status row */
+        .pw-status{display:flex;align-items:center;gap:6px;padding:0 10px;height:28px;opacity:1;transition:opacity .12s;}
+        .pw.open .pw-status{opacity:0;pointer-events:none;}
+        .pw-dot{width:7px;height:7px;background:#22aa22;border-radius:50%;flex-shrink:0;}
+        .pw-status span{font:11px/1 -apple-system,sans-serif;color:#666;}
+        /* Controls */
+        .pw-ctrls{position:absolute;top:0;left:0;right:0;padding:5px 6px;display:flex;flex-direction:column;gap:4px;opacity:0;transition:opacity .15s .18s;}
+        .pw.open .pw-ctrls{opacity:1;}
+        .pw-btn{height:24px;border-radius:8px;font:11px/24px -apple-system,sans-serif;color:#ddd;text-align:center;position:relative;overflow:hidden;transition:background-color .2s;}
+        .pw-btn.pw-toggle{background:#2d4a6e;}
+        .pw-btn.pw-mode  {background:#5a2d82;}
+        .pw-btn.pw-sett  {background:#4a3070;}
+        .pw-btn.pw-quit  {background:#6a2222;}
+        /* Click ripple */
+        .pd-ripple{position:absolute;border-radius:50%;width:80px;height:80px;left:50%;top:50%;margin:-40px 0 0 -40px;background:rgba(255,255,255,.18);transform:scale(0);animation:pd-rpl .45s ease-out forwards;pointer-events:none;}
+        @keyframes pd-rpl{to{transform:scale(1.8);opacity:0;}}
+        /* Cursor */
+        .pd-cursor{position:absolute;pointer-events:none;filter:drop-shadow(0 1px 3px rgba(0,0,0,.9));transition:left .7s cubic-bezier(.25,.46,.45,.94),top .7s cubic-bezier(.25,.46,.45,.94);}
+        .pd-caption{margin:10px 0 0;font-size:12px;color:#444;text-align:center;font-family:-apple-system,sans-serif;letter-spacing:.01em;}
+        </style>
+
+        <div class="pd-wrap">
+            <div class="pd-screen" id="pdScreen">
+                <div class="pd-line" style="width:52%;top:13%;left:8%"></div>
+                <div class="pd-line" style="width:36%;top:25%;left:8%"></div>
+                <div class="pd-line" style="width:61%;top:37%;left:8%"></div>
+                <div class="pd-line" style="width:28%;top:49%;left:8%"></div>
+                <div class="pd-line" style="width:45%;top:61%;left:8%"></div>
+                <div class="pw" id="pdPill">
+                    <div class="pw-status">
+                        <div class="pw-dot"></div>
+                        <span>Ready</span>
+                    </div>
+                    <div class="pw-ctrls">
+                        <div class="pw-btn pw-toggle">Toggle</div>
+                        <div class="pw-btn pw-mode" id="pdModeBtn">Transcribe</div>
+                        <div class="pw-btn pw-sett">⚙ Settings</div>
+                        <div class="pw-btn pw-quit">✕ Quit</div>
+                    </div>
+                </div>
+                <svg class="pd-cursor" id="pdCursor" width="18" height="22" viewBox="0 0 18 22">
+                    <polygon points="0,0 0,18 4,13 8,22 10,21 6,12 13,12" fill="white" stroke="rgba(0,0,0,0.5)" stroke-width="0.8" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <p class="pd-caption">Hover the pill → click the mode button to switch — no menus, no settings</p>
+        </div>
+        <script>
+        (function(){
+            var scr  = document.getElementById('pdScreen'),
+                pill = document.getElementById('pdPill'),
+                modeBtn = document.getElementById('pdModeBtn'),
+                cur  = document.getElementById('pdCursor');
+            var MODES = [
+                {l:'Transcribe', c:'#5a2d82'},
+                {l:'Transform',  c:'#1a7a1a'},
+                {l:'Translate',  c:'#1a4a7a'}
+            ];
+            var mi = 0;
+
+            function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+            function moveCur(x, y, ms){
+                cur.style.transition = 'left '+ms+'ms cubic-bezier(.25,.46,.45,.94),top '+ms+'ms cubic-bezier(.25,.46,.45,.94)';
+                cur.style.left = x + 'px';
+                cur.style.top  = y + 'px';
+                return wait(ms);
+            }
+
+            function clickMode(){
+                mi = (mi + 1) % MODES.length;
+                var rpl = document.createElement('div');
+                rpl.className = 'pd-ripple';
+                modeBtn.appendChild(rpl);
+                setTimeout(function(){ if(rpl.parentNode) rpl.parentNode.removeChild(rpl); }, 500);
+                modeBtn.textContent = MODES[mi].l;
+                modeBtn.style.backgroundColor = MODES[mi].c;
+            }
+
+            async function run(){
+                var sw = scr.offsetWidth, sh = scr.offsetHeight;
+                // Pill geometry: bottom:22px, collapsed h:28, expanded h:120
+                // pill center X = sw/2, cursor tip offset ~4px left
+                var px = sw / 2 - 4;
+                var pyCollapsed = sh - 22 - 14;            // mid of collapsed pill
+                var pyMode = sh - 22 - 120 + 5 + 24 + 4 + 12; // center of mode btn
+
+                // Reset
+                cur.style.transition = 'none';
+                cur.style.left = (sw - 50) + 'px';
+                cur.style.top  = '38px';
+                pill.classList.remove('open');
+                modeBtn.style.transition = 'none';
+                mi = 0;
+                modeBtn.textContent = MODES[0].l;
+                modeBtn.style.backgroundColor = MODES[0].c;
+                await wait(50);
+                modeBtn.style.transition = '';
+
+                await wait(1000);
+
+                // Cursor moves to pill
+                await moveCur(px, pyCollapsed, 700);
+                await wait(150);
+
+                // Pill expands
+                pill.classList.add('open');
+                await wait(450);
+
+                // Cursor moves to mode button
+                await moveCur(px, pyMode, 380);
+                await wait(320);
+
+                // Click 3 times to cycle all 3 modes
+                for(var i = 0; i < 3; i++){
+                    clickMode();
+                    await wait(880);
+                }
+
+                // Cursor leaves
+                await moveCur(sw - 55, 45, 650);
+                await wait(150);
+
+                // Pill collapses
+                pill.classList.remove('open');
+                await wait(1000);
+
+                run();
+            }
+
+            if('IntersectionObserver' in window){
+                var obs = new IntersectionObserver(function(e){
+                    if(e[0].isIntersecting){ obs.disconnect(); run(); }
+                }, {threshold: 0.4});
+                obs.observe(scr);
+            } else {
+                run();
+            }
+        })();
+        </script>
+
         <div class="modes-grid">
 
             <div class="mode-card transcribe">
