@@ -93,7 +93,7 @@
 
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: March 5, 2026</p>
+        <p class="meta">Last updated: March 18, 2026</p>
 
         <div class="summary-box">
             <p><strong>Plain English summary:</strong> We collect your email to create an account. Audio you record is sent through our server to AI services for transcription and is never stored. We track how many minutes you've used per month for your usage quota. Payment is handled by Razorpay — we don't see your card details.</p>
@@ -159,7 +159,7 @@
             </tbody>
         </table>
 
-        <p>We do <strong>not</strong> collect: names, phone numbers, IP addresses, location, device fingerprints, usage analytics, telemetry, or crash reports.</p>
+        <p>We do <strong>not</strong> collect: names, phone numbers, IP addresses, location, device fingerprints, or transcription text. We log anonymised reliability events (e.g. audio too quiet, API errors, feature usage counts) to improve the app. These events contain no audio, no transcription text, and no personally identifiable information.</p>
 
         <h2>3. How Audio Is Processed</h2>
         <p>When you activate recording:</p>
@@ -224,13 +224,13 @@
         <h2>6. Data Storage &amp; Security</h2>
         <ul>
             <li>All API communication uses <strong>HTTPS (TLS)</strong> in transit.</li>
-            <li>Your auth token is stored locally in <code>%APPDATA%\ChillPillSarvam\settings.json</code> (Windows) or the equivalent on macOS. It is not transmitted to anyone except our proxy server to authenticate your requests.</li>
+            <li>Your auth token is stored locally in <code>%APPDATA%\ChillPill\settings.json</code> (Windows) or the equivalent on macOS. It is not transmitted to anyone except our proxy server to authenticate your requests.</li>
             <li>Usage and subscription data is stored in a SQLite database on Railway. Access is restricted to our application.</li>
             <li>We do not store passwords — Supabase handles authentication and only stores a password hash.</li>
         </ul>
 
         <h2>7. Auto-Start &amp; Registry</h2>
-        <p>If you enable "Start Chill Pill on login" in Settings, the app adds a registry entry at <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\ChillPillSarvam</code>. This is removed when you disable the option or uninstall. No data is collected through this feature.</p>
+        <p>If you enable "Start Chill Pill on login" in Settings, the app adds a registry entry at <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\ChillPill</code>. This is removed when you disable the option or uninstall. No data is collected through this feature.</p>
 
         <h2>8. Your Rights</h2>
 
