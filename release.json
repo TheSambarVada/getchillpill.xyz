@@ -1,14 +1,18 @@
 {
   "version": "2.1",
-  "mac": {
-    "url": "https://getchillpill.xyz/downloads/ChillPill_Mac.dmg"
-  },
+  "release_notes": [
+    "Signed installer — no more SmartScreen warning on Windows",
+    "Cancel dictation mid-recording with the \u00d7 button",
+    "Hotkey sound can now be toggled in Settings",
+    "Pill border color now reflects active mode (green / purple / blue)",
+    "Feedback button opens branded form with email pre-filled",
+    "Mac installer restored to drag-to-Applications flow",
+    "In-app update prompts now show release notes"
+  ],
   "windows": {
     "url": "https://getchillpill.xyz/downloads/ChillPill_Setup.exe"
   },
-  "release_notes": [
-    "Branded feedback page added from Settings",
-    "Mac installer restored to drag-to-Applications flow",
-    "In-app update prompts available on both Mac and Windows"
-  ]
+  "mac": {
+    "url": "https://getchillpill.xyz/downloads/ChillPill_Mac.dmg"
+  }
 }
