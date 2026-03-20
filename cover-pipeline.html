@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0a0f;
+    color: white;
+  }
+
+  .wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  /* Labels row */
+  .labels {
+    display: flex;
+    align-items: center;
+    width: 1200px;
+  }
+  .step-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .label-col1 { width: 380px; }
+  .label-spacer { width: 60px; }
+  .label-col2 { width: 280px; }
+  .label-col3 { width: 420px; }
+
+  /* Cards row — stretch makes all cards same height */
+  .cards {
+    display: flex;
+    align-items: stretch;
+    width: 1200px;
+    min-height: 540px;
+  }
+
+  .card {
+    background: #111118;
+    border: 1px solid #1e1e2a;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Arrow between cards */
+  .arrow {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .arrow-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.2));
+    position: relative;
+  }
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -4px;
+    border-left: 8px solid rgba(255,255,255,0.2);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  /* Shared: top bar for left and right cards (same height = text aligns) */
+  .card-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: #0d0d14;
+    border-bottom: 1px solid #1e1e2a;
+    flex-shrink: 0;
+    height: 44px;
+  }
+  .bar-icon { font-size: 22px; }
+  .bar-title { font-size: 16px; color: #555; }
+  .window-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .window-dot.r { background: #ff5f57; }
+  .window-dot.y { background: #ffbd2e; }
+  .window-dot.g { background: #28c840; }
+
+  /* Shared: text body — flex:1, content vertically centered */
+  .card-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 32px 28px;
+  }
+
+  /* --- Card 1: Speech (380px) --- */
+  .speech-card { width: 380px; flex-shrink: 0; }
+  .raw-text {
+    font-size: 22px;
+    color: #777;
+    line-height: 1.9;
+  }
+  .raw-text .filler {
+    color: #ef4444;
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  /* --- Card 2: Pill (280px) — no bar, fully centered --- */
+  .pill-card {
+    width: 280px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 32px 28px;
+  }
+  .ai-logo { width: 260px; height: auto; }
+  .ai-labels { display: flex; gap: 10px; }
+  .ai-tag {
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .ai-tag.whisper {
+    background: rgba(102, 126, 234, 0.08);
+    color: #667eea;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+  }
+  .ai-tag.polish {
+    background: rgba(34, 197, 94, 0.08);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  /* --- Card 3: Output (420px) --- */
+  .output-card { width: 420px; flex-shrink: 0; }
+  .gmail-subject {
+    font-size: 15px;
+    color: #555;
+    padding: 10px 28px;
+    border-bottom: 1px solid #1e1e2a;
+  }
+  .gmail-subject span { color: #888; }
+  .clean-text {
+    font-size: 22px;
+    color: #ccc;
+    line-height: 1.9;
+  }
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 18px;
+    background: #22c55e;
+    vertical-align: text-bottom;
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+  <!-- Labels -->
+  <div class="labels">
+    <div class="step-label label-col1">You speak</div>
+    <div class="label-spacer"></div>
+    <div class="step-label label-col2">Chill Pill</div>
+    <div class="label-spacer"></div>
+    <div class="step-label label-col3">Clean text appears</div>
+  </div>
+
+  <!-- Cards + Arrows -->
+  <div class="cards">
+
+    <!-- Card 1: Raw Speech -->
+    <div class="card speech-card">
+      <div class="card-bar">
+        <span class="bar-icon">&#127908;</span>
+        <span class="bar-title">Voice Input</span>
+      </div>
+      <div class="card-body">
+        <p class="raw-text">
+          &#8220;<span class="filler">So um</span> hi team, <span class="filler">like</span> just wanted to say we should move the deadline to <span class="filler">you know</span> next Friday to give everyone <span class="filler">basically</span> enough time to finish testing and <span class="filler">uh</span> review the changes properly before we ship.&#8221;
+        </p>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div></div>
+
+    <!-- Card 2: Chill Pill -->
+    <div class="card pill-card">
+      <img class="ai-logo" src="logo-cropped.png" alt="Chill Pill">
+      <div class="ai-labels">
+        <span class="ai-tag whisper">Whisper</span>
+        <span class="ai-tag polish">AI Polish</span>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div></div>
+
+    <!-- Card 3: Clean Output -->
+    <div class="card output-card">
+      <div class="card-bar">
+        <div class="window-dot r"></div>
+        <div class="window-dot y"></div>
+        <div class="window-dot g"></div>
+        <span class="bar-title" style="margin-left: 4px;">Gmail &mdash; New Message</span>
+      </div>
+      <div class="gmail-subject"><span>Subject:</span> Team update — deadline extension</div>
+      <div class="card-body">
+        <p class="clean-text">Hi team, I think we should move the deadline to next Friday to give everyone enough time to finish testing and review the changes before we ship.<span class="cursor"></span></p>
+      </div>
+    </div>
+
+  </div>
+
+  </div> <!-- /wrapper -->
+
+</body>
+</html>
