@@ -1,0 +1,14 @@
+{
+  "version": "2.1",
+  "mac": {
+    "url": "https://getchillpill.xyz/downloads/ChillPill_Mac.dmg"
+  },
+  "windows": {
+    "url": "https://getchillpill.xyz/downloads/ChillPill_Setup.exe"
+  },
+  "release_notes": [
+    "Branded feedback page added from Settings",
+    "Mac installer restored to drag-to-Applications flow",
+    "In-app update prompts available on both Mac and Windows"
+  ]
+}
