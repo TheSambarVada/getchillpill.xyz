@@ -1,13 +1,13 @@
 {
-  "version": "2.1",
+  "version": "2.2",
   "release_notes": [
-    "Signed installer — no more SmartScreen warning on Windows",
+    "Interactive onboarding walkthrough — learn every feature before your first dictation",
+    "Mic permission check at startup — no more silent failures if mic access is denied",
+    "RegisterHotKey replaces pynput — no longer flagged by antivirus as keylogger",
+    "Paste retry with error flash — no more silent data loss if paste fails",
     "Cancel dictation mid-recording with the \u00d7 button",
     "Hotkey sound can now be toggled in Settings",
-    "Pill border color now reflects active mode (green / purple / blue)",
-    "Feedback button opens branded form with email pre-filled",
-    "Mac installer restored to drag-to-Applications flow",
-    "In-app update prompts now show release notes"
+    "Pill border color now reflects active mode (green / purple / blue)"
   ],
   "windows": {
     "url": "https://getchillpill.xyz/downloads/ChillPill_Setup.exe"
