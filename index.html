@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>if(window.location.hash.includes('type=recovery')){location.replace('/reset-password.html'+window.location.hash);}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1115,13 +1116,6 @@
         })();
     </script>
 
-    <script>
-        // Redirect Supabase recovery tokens to the reset-password page.
-        // Handles old app installs and cached emails that land on the homepage.
-        if (window.location.hash.includes('type=recovery')) {
-            location.replace('/reset-password.html' + window.location.hash);
-        }
-    </script>
 
 </body>
 </html>
