@@ -1005,9 +1005,41 @@
         var btn = document.getElementById('subscribe-btn');
         if (!btn) return;
 
-        var hash   = window.location.hash.slice(1);
-        var params = new URLSearchParams(hash);
-        var token  = params.get('token');
+        var hash = window.location.hash.slice(1);
+        var hashParams = new URLSearchParams(hash);
+        var queryParams = new URLSearchParams(window.location.search);
+        var token = hashParams.get('token') || queryParams.get('token');
+
+        var API_BASES = [
+            'https://api.getchillpill.xyz',
+            'https://web-production-050e5.up.railway.app'
+        ];
+
+        async function createSubscription(jwt) {
+            var lastError = null;
+            for (var i = 0; i < API_BASES.length; i++) {
+                var base = API_BASES[i];
+                try {
+                    var resp = await fetch(base + '/create-subscription', {
+                        method: 'POST',
+                        headers: { 'Authorization': 'Bearer ' + jwt }
+                    });
+                    if (!resp.ok) {
+                        var body = await resp.text();
+                        lastError = new Error(base + ' -> HTTP ' + resp.status + ' ' + body);
+                        continue;
+                    }
+                    var data = await resp.json();
+                    if (data && (data.short_url || (data.subscription_id && data.key_id))) {
+                        return data;
+                    }
+                    lastError = new Error(base + ' -> invalid response shape');
+                } catch (e) {
+                    lastError = e;
+                }
+            }
+            throw lastError || new Error('Checkout backend unavailable');
+        }
 
         if (!token) {
             btn.textContent = 'Open Chill Pill to Subscribe';
@@ -1030,14 +1062,16 @@
             btn.textContent = 'Loading\u2026';
             btn.disabled = true;
             try {
-                var resp = await fetch(
-                    'https://web-production-050e5.up.railway.app/create-subscription',
-                    { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } }
-                );
-                if (!resp.ok) throw new Error(await resp.text());
-                var data = await resp.json();
+                var data = await createSubscription(token);
+                if (data.short_url) {
+                    window.location.href = data.short_url;
+                    return;
+                }
                 var subscription_id = data.subscription_id;
-                var key_id          = data.key_id;
+                var key_id = data.key_id;
+                if (!subscription_id || !key_id) {
+                    throw new Error('Checkout response missing subscription fields');
+                }
 
                 var rzp = new Razorpay({
                     key: key_id,
