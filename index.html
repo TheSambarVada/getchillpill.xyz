@@ -968,6 +968,15 @@
                     <li>Early access to new features</li>
                 </ul>
                 <button id="subscribe-btn" class="pricing-btn pro-btn">Upgrade to Pro</button>
+                <div id="subscribe-form" style="display:none; margin-top:14px;">
+                    <input id="subscribe-email" type="email" placeholder="Your email address"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; background:#111; border:1px solid #333; border-radius:8px; color:#eee; font-size:14px; margin-bottom:8px;">
+                    <p style="font-size:12px; color:#888; margin:0 0 10px; line-height:1.5;">
+                        ⚠ Use the <strong style="color:#ccc;">same email</strong> you sign in with on the Chill Pill app — Pro activates automatically when you next open the app.
+                    </p>
+                    <button id="subscribe-submit" class="pricing-btn pro-btn" style="margin-top:0;">Proceed to Payment</button>
+                    <div id="subscribe-error" style="margin-top:8px; font-size:12px; color:#f87171; min-height:16px;"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -995,31 +1004,58 @@
         <a id="sticky-dl-btn" href="downloads/ChillPill_Setup_2.2.exe" class="dl-btn windows">⬇ Download Free</a>
     </div>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
     <script>
     (function () {
-        var btn = document.getElementById('subscribe-btn');
+        var btn    = document.getElementById('subscribe-btn');
+        var form   = document.getElementById('subscribe-form');
+        var input  = document.getElementById('subscribe-email');
+        var submit = document.getElementById('subscribe-submit');
+        var errEl  = document.getElementById('subscribe-error');
         if (!btn) return;
+
+        // Step 1: show the email form
         btn.onclick = function () {
-            btn.textContent = 'Loading\u2026';
-            btn.disabled = true;
-            fetch('https://api.getchillpill.xyz/subscribe', { method: 'POST' })
-                .then(function (r) {
-                    return r.ok ? r.json() : r.text().then(function (t) { throw new Error(t); });
-                })
-                .then(function (data) {
-                    if (data.short_url) {
-                        window.location.href = data.short_url;
-                    } else {
-                        throw new Error('No checkout URL');
-                    }
-                })
-                .catch(function () {
-                    btn.textContent = 'Error \u2014 try again';
-                    btn.disabled = false;
-                });
+            btn.style.display = 'none';
+            form.style.display = 'block';
+            input.focus();
         };
+
+        // Step 2: submit email → call /subscribe → redirect
+        submit.onclick = function () {
+            var email = input.value.trim();
+            errEl.textContent = '';
+            if (!email || !email.includes('@')) {
+                errEl.textContent = 'Please enter a valid email address.';
+                return;
+            }
+            submit.textContent = 'Loading\u2026';
+            submit.disabled = true;
+            fetch('https://api.getchillpill.xyz/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            })
+            .then(function (r) {
+                return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.detail || 'Error'); });
+            })
+            .then(function (data) {
+                if (data.short_url) {
+                    window.location.href = data.short_url;
+                } else {
+                    throw new Error('No checkout URL');
+                }
+            })
+            .catch(function (e) {
+                errEl.textContent = e.message || 'Something went wrong \u2014 please try again.';
+                submit.textContent = 'Proceed to Payment';
+                submit.disabled = false;
+            });
+        };
+
+        // Allow Enter key in email field
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') submit.click();
+        });
     })();
     </script>
 
