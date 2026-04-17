@@ -1,5 +1,16 @@
 {
-  "version": "2.2",
+  "version": "2.3",
+  "release_notes": [
+    "Faster dictation — D1 checks now run while you speak, not after",
+    "No more slow first dictation after launch — voice model pre-warmed on startup",
+    "Prevents idle latency spikes — Whisper kept hot between dictations",
+    "Paste history: copy any entry with one click, filter by date",
+    "Upgraded to Whisper large-v3-turbo — more accurate, fewer hallucinations",
+    "Faster audio upload — switched to Opus encoding (~2× smaller than FLAC)"
+  ],
+  "windows": {
+    "url": "https://getchillpill.xyz/downloads/ChillPill_Setup_2.3.exe"
+  },
   "mac": {
     "url": "https://getchillpill.xyz/downloads/ChillPill_Mac.dmg"
   }
