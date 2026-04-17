@@ -93,7 +93,7 @@
 
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: March 18, 2026</p>
+        <p class="meta">Last updated: April 16, 2026</p>
 
         <div class="summary-box">
             <p><strong>Plain English summary:</strong> We collect your email to create an account. Audio you record is sent through our server to AI services for transcription and is never stored. We track how many minutes you've used per month for your usage quota. Payment is handled by Razorpay — we don't see your card details.</p>
@@ -141,13 +141,13 @@
                 <tr>
                     <td><strong>Usage minutes</strong></td>
                     <td>Enforce free-tier quota (30 min/month)</td>
-                    <td>Our proxy server (Railway)</td>
+                    <td>Our proxy server (Cloudflare)</td>
                     <td>Reset monthly; deleted on account deletion</td>
                 </tr>
                 <tr>
                     <td><strong>Subscription status</strong></td>
                     <td>Know if you're on Free or Pro</td>
-                    <td>Our proxy server (Railway)</td>
+                    <td>Our proxy server (Cloudflare)</td>
                     <td>Until account deletion</td>
                 </tr>
                 <tr>
@@ -164,7 +164,7 @@
         <h2>3. How Audio Is Processed</h2>
         <p>When you activate recording:</p>
         <ul>
-            <li>Audio is captured in device RAM and sent over HTTPS to our proxy server (Railway, hosted in Singapore).</li>
+            <li>Audio is captured in device RAM and sent over HTTPS to our proxy server (Cloudflare Workers, globally distributed).</li>
             <li>The proxy forwards audio to one of the AI services below for transcription. The audio is <strong>not stored</strong> on our server — it is forwarded in memory and the buffer discarded immediately after the AI response is received.</li>
             <li>The transcribed text is returned to your device, optionally polished by an LLM, and pasted into your active window. It is then discarded from memory.</li>
         </ul>
@@ -211,10 +211,10 @@
                     <td><a href="https://razorpay.com/privacy" target="_blank">razorpay.com/privacy</a></td>
                 </tr>
                 <tr>
-                    <td><strong>Railway</strong></td>
+                    <td><strong>Cloudflare</strong></td>
                     <td>Audio (in transit), API requests</td>
-                    <td>Hosts our proxy server; audio is not logged or stored</td>
-                    <td><a href="https://railway.app/legal/privacy" target="_blank">railway.app/legal/privacy</a></td>
+                    <td>Hosts our proxy server (Workers); audio is not logged or stored</td>
+                    <td><a href="https://www.cloudflare.com/privacypolicy/" target="_blank">cloudflare.com/privacypolicy</a></td>
                 </tr>
             </tbody>
         </table>
@@ -225,7 +225,7 @@
         <ul>
             <li>All API communication uses <strong>HTTPS (TLS)</strong> in transit.</li>
             <li>Your auth token is stored locally in <code>%APPDATA%\ChillPill\settings.json</code> (Windows) or the equivalent on macOS. It is not transmitted to anyone except our proxy server to authenticate your requests.</li>
-            <li>Usage and subscription data is stored in a SQLite database on Railway. Access is restricted to our application.</li>
+            <li>Usage and subscription data is stored in a database (Cloudflare D1) on our proxy server. Access is restricted to our application.</li>
             <li>We do not store passwords — Supabase handles authentication and only stores a password hash.</li>
         </ul>
 
