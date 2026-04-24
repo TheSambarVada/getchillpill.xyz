@@ -1057,6 +1057,192 @@
     })();
     </script>
 
+    <!-- SmartScreen trust modal -->
+    <style>
+        #ss-modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.72); backdrop-filter: blur(4px);
+            align-items: center; justify-content: center;
+        }
+        #ss-modal-overlay.visible { display: flex; }
+        #ss-modal {
+            background: #111118; border: 1px solid #2a2a3a; border-radius: 18px;
+            max-width: 560px; width: calc(100% - 32px); max-height: 90vh;
+            overflow-y: auto; padding: 36px 36px 28px; position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+        #ss-modal h2 {
+            font-size: 20px; font-weight: 700; color: #f0f0f8; margin: 0 0 8px;
+            line-height: 1.3;
+        }
+        #ss-modal .ss-sub {
+            font-size: 14px; color: #666; margin: 0 0 28px; line-height: 1.6;
+        }
+        #ss-modal .ss-step {
+            display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;
+        }
+        #ss-modal .ss-num {
+            width: 28px; height: 28px; border-radius: 50%; background: #1e1e2e;
+            border: 1px solid #3a3a5a; color: #a78bfa; font-size: 13px;
+            font-weight: 700; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px;
+        }
+        #ss-modal .ss-step-body { flex: 1; }
+        #ss-modal .ss-step-body strong {
+            display: block; font-size: 14px; font-weight: 600; color: #e0e0e8;
+            margin-bottom: 4px;
+        }
+        #ss-modal .ss-step-body p {
+            font-size: 13px; color: #777; margin: 0 0 10px; line-height: 1.55;
+        }
+        #ss-modal .ss-dialog-mock {
+            background: #1a1a2a; border: 1px solid #2d2d45; border-radius: 10px;
+            padding: 14px 16px; margin-top: 8px;
+        }
+        #ss-modal .ss-dialog-mock .mock-title {
+            font-size: 11px; color: #555; font-weight: 600; letter-spacing: 0.5px;
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+        #ss-modal .ss-dialog-mock .mock-row {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+        }
+        #ss-modal .ss-dialog-mock .mock-shield {
+            font-size: 20px; line-height: 1;
+        }
+        #ss-modal .ss-dialog-mock .mock-text {
+            font-size: 13px; color: #c0c0d0; line-height: 1.4;
+        }
+        #ss-modal .ss-dialog-mock .mock-link {
+            font-size: 12px; color: #818cf8; cursor: default; margin-top: 6px;
+            display: inline-block; text-decoration: underline;
+        }
+        #ss-modal .ss-dialog-mock .mock-btn-row {
+            display: flex; gap: 8px; margin-top: 12px;
+        }
+        #ss-modal .ss-dialog-mock .mock-btn {
+            font-size: 12px; padding: 5px 14px; border-radius: 5px; cursor: default;
+        }
+        #ss-modal .ss-dialog-mock .mock-btn.primary {
+            background: #3b4fd4; color: #fff; border: none;
+        }
+        #ss-modal .ss-dialog-mock .mock-btn.ghost {
+            background: transparent; color: #888; border: 1px solid #333;
+        }
+        #ss-modal .ss-vt-row {
+            background: #0d1a0d; border: 1px solid #1a3a1a; border-radius: 10px;
+            padding: 14px 16px; margin: 4px 0 24px;
+            display: flex; gap: 14px; align-items: center;
+        }
+        #ss-modal .ss-vt-icon { font-size: 22px; flex-shrink: 0; }
+        #ss-modal .ss-vt-text { flex: 1; }
+        #ss-modal .ss-vt-text strong { font-size: 13px; color: #4ade80; display: block; margin-bottom: 2px; }
+        #ss-modal .ss-vt-text span { font-size: 12px; color: #555; }
+        #ss-modal .ss-vt-text a { color: #4ade80; }
+        #ss-modal .ss-footer { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+        #ss-modal .ss-close-btn {
+            background: #22c55e; color: #fff; border: none; border-radius: 8px;
+            padding: 11px 24px; font-size: 14px; font-weight: 700; cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        #ss-modal .ss-close-btn:hover { opacity: 0.85; }
+        #ss-modal .ss-dismiss {
+            background: transparent; color: #555; border: 1px solid #222;
+            border-radius: 8px; padding: 11px 20px; font-size: 13px; cursor: pointer;
+        }
+        #ss-modal .ss-dismiss:hover { color: #888; }
+        #ss-modal-close-x {
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            color: #444; font-size: 20px; cursor: pointer; line-height: 1;
+        }
+        #ss-modal-close-x:hover { color: #aaa; }
+    </style>
+
+    <div id="ss-modal-overlay">
+      <div id="ss-modal">
+        <button id="ss-modal-close-x" onclick="closeSsModal()">&#x2715;</button>
+        <h2>Your download is starting &#x2193;</h2>
+        <p class="ss-sub">Windows may show a SmartScreen warning. Here's exactly what to do — it takes 5 seconds.</p>
+
+        <div class="ss-step">
+          <div class="ss-num">1</div>
+          <div class="ss-step-body">
+            <strong>You'll see a blue SmartScreen popup</strong>
+            <p>Windows shows this for new apps that haven't built up enough download history yet. It doesn't mean the app is dangerous — it means we're a small indie app, not Microsoft.</p>
+            <div class="ss-dialog-mock">
+              <div class="mock-title">Windows SmartScreen</div>
+              <div class="mock-row">
+                <div class="mock-shield">🛡️</div>
+                <div class="mock-text">Windows protected your PC<br><span style="color:#555;font-size:12px;">Microsoft Defender SmartScreen prevented an unrecognized app from starting.</span></div>
+              </div>
+              <span class="mock-link">More info</span>
+              <div class="mock-btn-row">
+                <div class="mock-btn ghost">Don't run</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-step">
+          <div class="ss-num">2</div>
+          <div class="ss-step-body">
+            <strong>Click "More info"</strong>
+            <p>This reveals the publisher name and the "Run anyway" button. Click the blue "More info" text.</p>
+          </div>
+        </div>
+
+        <div class="ss-step">
+          <div class="ss-num">3</div>
+          <div class="ss-step-body">
+            <strong>Click "Run anyway"</strong>
+            <p>You'll see the publisher is <strong style="color:#e0e0e8;">Manish S Tuljapurkar</strong> — that's us. The installer is signed with an EV (Extended Validation) certificate. Click "Run anyway" to proceed.</p>
+            <div class="ss-dialog-mock">
+              <div class="mock-title">After clicking "More info"</div>
+              <div class="mock-row">
+                <div class="mock-shield">🛡️</div>
+                <div class="mock-text">App: ChillPill_Setup_2.3.exe<br><span style="color:#555;font-size:12px;">Publisher: Manish S Tuljapurkar</span></div>
+              </div>
+              <div class="mock-btn-row">
+                <div class="mock-btn primary">Run anyway</div>
+                <div class="mock-btn ghost">Don't run</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-vt-row">
+          <div class="ss-vt-icon">✅</div>
+          <div class="ss-vt-text">
+            <strong>0 / 69 antivirus engines flagged this file</strong>
+            <span>Independently verified on VirusTotal. <a href="https://www.virustotal.com/gui/file/eff84ffb6d8e909925872f49dae54e894aad39a41109f4fcf5eb510746cd78d9" target="_blank" rel="noopener">Check the scan yourself &rarr;</a></span>
+          </div>
+        </div>
+
+        <p style="font-size:12px;color:#444;margin:0 0 20px;line-height:1.6;">
+          Chill Pill is built by a two-person indie team in India. We're not a big company and we don't have the download volume yet for Windows to auto-trust us. The SmartScreen reputation builds naturally as more people install — thanks for bearing with us.
+        </p>
+
+        <div class="ss-footer">
+          <button class="ss-close-btn" onclick="closeSsModal()">Got it</button>
+          <button class="ss-dismiss" onclick="closeSsModal()">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        function closeSsModal() {
+            document.getElementById('ss-modal-overlay').classList.remove('visible');
+        }
+        function openSsModal() {
+            document.getElementById('ss-modal-overlay').classList.add('visible');
+        }
+        document.getElementById('ss-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeSsModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeSsModal();
+        });
+    </script>
+
     <script>
         (function () {
             var ua = navigator.userAgent;
@@ -1088,6 +1274,20 @@
                 }
             }
 
+            function wireWindowsBtn(el, url) {
+                if (!el) return;
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = '';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    openSsModal();
+                });
+            }
+
             if (isMobile) {
                 var bar = document.querySelector('.sticky-bar');
                 if (bar) bar.style.display = 'none';
@@ -1101,9 +1301,12 @@
                 setBtn(heroBtn,   '⬇ Download Free for Mac',   MAC_URL, true);
             } else {
                 setBtn(stickyBtn, '⬇ Download Free for Windows', WIN_URL, true);
-
                 setBtn(freeBtn,   'Download for Windows',          WIN_URL, true);
                 setBtn(heroBtn,   '⬇ Download Free for Windows',  WIN_URL, true);
+
+                wireWindowsBtn(stickyBtn, WIN_URL);
+                wireWindowsBtn(freeBtn,   WIN_URL);
+                wireWindowsBtn(heroBtn,   WIN_URL);
             }
         })();
     </script>
