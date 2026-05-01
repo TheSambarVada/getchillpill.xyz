@@ -93,10 +93,10 @@
 
     <div class="container">
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: April 16, 2026</p>
+        <p class="meta">Last updated: May 1, 2026</p>
 
         <div class="summary-box">
-            <p><strong>Plain English summary:</strong> We collect your email to create an account. Audio you record is sent through our server to AI services for transcription and is never stored. We track how many minutes you've used per month for your usage quota. Payment is handled by Razorpay — we don't see your card details.</p>
+            <p><strong>Plain English summary:</strong> We collect your email to create an account. Audio you record is sent through our server to AI services for transcription and is never stored. When you start recording, the app takes a screenshot of your active window, runs it through your device's built-in OCR to extract words visible on screen, and uses those words to improve transcription accuracy — the screenshot is discarded immediately and never leaves your device. We track how many minutes you've used per month for your usage quota. Payment is handled by Razorpay — we don't see your card details.</p>
         </div>
 
         <h2>1. Who We Are</h2>
@@ -151,6 +151,12 @@
                     <td>Until account deletion</td>
                 </tr>
                 <tr>
+                    <td><strong>Screen content (OCR)</strong></td>
+                    <td>Improve transcription accuracy with words visible on screen</td>
+                    <td>Device RAM only — never leaves your device</td>
+                    <td>Discarded immediately after each dictation</td>
+                </tr>
+                <tr>
                     <td><strong>App preferences</strong></td>
                     <td>Remember your settings</td>
                     <td>Locally on your device</td>
@@ -170,10 +176,21 @@
         </ul>
         <p>Audio is <strong>never written to disk</strong> on your device or on our server.</p>
 
-        <h2>4. Keyboard Monitoring</h2>
-        <p>Chill Pill uses a global keyboard listener (via <code>pynput</code>) <strong>only to detect your configured hotkey</strong> (e.g., F9). We do not log, record, or transmit keystrokes. All key events other than your hotkey are ignored and immediately discarded.</p>
+        <h2>4. Screen Content Reading (OCR)</h2>
+        <p>At the moment you start recording, the app captures a screenshot of your active window entirely on your device using the operating system's built-in screen capture API (Windows: <code>PrintWindow</code>; macOS: <code>CGWindowListCreateImage</code>). This screenshot is immediately processed by the OS's on-device OCR engine (Windows: <code>Windows.Media.Ocr</code>; macOS: <code>VNRecognizeTextRequest</code>) to extract words visible on screen.</p>
+        <p>These words are used solely to improve transcription accuracy — they are sent to the speech-to-text model as vocabulary hints so it can correctly recognise names, brands, and terms visible in your current context (for example, a contact name in a chat window or a product name in a document).</p>
+        <ul>
+            <li>The screenshot is <strong>never saved to disk</strong>, never transmitted over the network, and never seen by us or any third party.</li>
+            <li>The OCR runs entirely on your device using a built-in OS API — no internet connection is required for this step.</li>
+            <li>The extracted words are discarded immediately after each dictation completes.</li>
+            <li>If the OCR captures sensitive content visible on your screen (such as a password prompt or private message), those words may temporarily be used as transcription hints and are discarded along with all other context after the dictation. They are never stored or transmitted.</li>
+        </ul>
 
-        <h2>5. Third-Party Services</h2>
+        <h2>5. Hotkey Detection</h2>
+        <p>On Windows, Chill Pill uses the system <code>RegisterHotKey</code> API to listen for your configured hotkey. This is a standard Windows mechanism used by all productivity apps — it only fires when your exact hotkey combination is pressed, and no other keystrokes are observed or recorded.</p>
+        <p>On macOS, the app uses Quartz event polling to detect your configured hotkey. As with Windows, only your specific hotkey is acted upon. We do not log, record, or transmit any keystroke data.</p>
+
+        <h2>6. Third-Party Services</h2>
         <p>Your data may be processed by the following services when you use the app:</p>
 
         <table>
@@ -221,7 +238,7 @@
 
         <p>Audio sent to Groq and Sarvam is not retained by default. Groq's Zero Data Retention (ZDR) policy means audio is deleted immediately after transcription.</p>
 
-        <h2>6. Data Storage &amp; Security</h2>
+        <h2>7. Data Storage &amp; Security</h2>
         <ul>
             <li>All API communication uses <strong>HTTPS (TLS)</strong> in transit.</li>
             <li>Your auth token is stored locally in <code>%APPDATA%\ChillPill\settings.json</code> (Windows) or the equivalent on macOS. It is not transmitted to anyone except our proxy server to authenticate your requests.</li>
@@ -229,10 +246,10 @@
             <li>We do not store passwords — Supabase handles authentication and only stores a password hash.</li>
         </ul>
 
-        <h2>7. Auto-Start &amp; Registry</h2>
+        <h2>8. Auto-Start &amp; Registry</h2>
         <p>If you enable "Start Chill Pill on login" in Settings, the app adds a registry entry at <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run\ChillPill</code>. This is removed when you disable the option or uninstall. No data is collected through this feature.</p>
 
-        <h2>8. Your Rights</h2>
+        <h2>9. Your Rights</h2>
 
         <h3>Under DPDPA 2023 (India)</h3>
         <ul>
@@ -257,13 +274,13 @@
 
         <p>To exercise any of these rights, contact us via our <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">contact form</a>. Account deletion removes your email, usage data, and subscription record. Local data (settings file, auth token) can be deleted by uninstalling the app.</p>
 
-        <h2>9. Children's Privacy</h2>
+        <h2>10. Children's Privacy</h2>
         <p>Chill Pill is not intended for children under 13. We do not knowingly collect data from children. If you believe a child has created an account, contact us and we will delete it.</p>
 
-        <h2>10. Changes to This Policy</h2>
+        <h2>11. Changes to This Policy</h2>
         <p>We may update this Privacy Policy. Changes will be posted on this page with an updated date. Material changes will be notified by email or in-app notice.</p>
 
-        <h2>11. Contact</h2>
+        <h2>12. Contact</h2>
         <p>For privacy questions or data requests, use our <a href="https://forms.gle/eCFSqaTz1Fb9NVvS6" target="_blank">contact form</a>. For grievances under IT Rules 2021, see the <a href="/grievance.html">Grievance Officer page</a>.</p>
     </div>
 
