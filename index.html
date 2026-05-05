@@ -73,6 +73,9 @@
     </script>
 
     <link rel="icon" type="image/x-icon" href="chillpill.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="logo-128.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -155,6 +158,7 @@
             align-items: center;
             max-width: 1100px;
             margin: 0 auto;
+            position: relative;
         }
         .nav-logo {
             display: flex;
@@ -186,6 +190,52 @@
             white-space: nowrap;
         }
         .nav-dl-btn:hover { opacity: 0.88; box-shadow: 0 4px 18px rgba(124,58,237,0.5); color: #fff !important; }
+
+        /* ── Mobile nav menu ── */
+        .nav-explore-btn {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #c0c0cc;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+        .nav-explore-btn:hover { background: rgba(255,255,255,0.1); color: #e0e0e8; }
+        .nav-explore-btn svg { transition: transform 0.2s; }
+        .nav-explore-btn.open svg { transform: rotate(180deg); }
+        .nav-explore-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% - 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111118;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 6px;
+            min-width: 180px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            z-index: 200;
+        }
+        .nav-explore-dropdown.open { display: block; }
+        .nav-explore-dropdown a {
+            display: block;
+            padding: 11px 16px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 9px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .nav-explore-dropdown a:hover { background: rgba(255,255,255,0.07); color: #e0e0e8; }
 
         /* ── Hero ── */
         .hero {
@@ -944,18 +994,23 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
             .hero { padding: 28px 20px 0; }
-            .nav { padding: 16px 20px; }
-            .nav-links { gap: 16px; }
-            .section { padding: 64px 20px; }
+            .nav { padding: 14px 20px; }
+            .nav-links a:not(.nav-dl-btn) { display: none; }
+            .nav-explore-btn { display: flex; }
+            .section { padding: 72px 20px; }
+            .ba-section .section { padding: 72px 20px; }
+            .section-label { margin-bottom: 10px; }
+            .section h2 { font-size: 28px; letter-spacing: -0.5px; margin-bottom: 16px; }
+            .section .section-sub { font-size: 15px; margin-bottom: 40px; }
             .modes-grid { grid-template-columns: 1fr; }
-            .steps { grid-template-columns: 1fr; }
+            .steps { grid-template-columns: 1fr; gap: 24px; }
             .steps::before { display: none; }
             .ba-row { grid-template-columns: 1fr; }
             .ba-col + .ba-col { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
             .pricing-grid { grid-template-columns: 1fr; }
             .sticky-bar { padding: 12px 16px; gap: 8px; }
             .sticky-bar .dl-btn { padding: 10px 18px; font-size: 13px; }
-            .bottom-cta h2 { font-size: 34px; letter-spacing: -1px; }
+            .bottom-cta h2 { font-size: 30px; letter-spacing: -0.5px; }
             .stats-strip { gap: 8px; padding: 28px 20px; }
         }
     </style>
@@ -974,14 +1029,30 @@
     <!-- Nav -->
     <nav class="nav">
         <a class="nav-logo" href="#">
-            <img src="logo-new-128.png" alt="Chill Pill">
+            <img src="logo-128.png" alt="Chill Pill">
             <span>Chill Pill</span>
         </a>
+
+        <!-- Desktop links + mobile explore button live together -->
         <div class="nav-links">
             <a href="#modes">Modes</a>
             <a href="#how-it-works">How it Works</a>
             <a href="#pricing">Pricing</a>
-            <a id="nav-dl-btn" class="nav-dl-btn" href="downloads/ChillPill_Setup_2.3.exe">Download</a>
+
+            <!-- Mobile-only: Explore dropdown -->
+            <button class="nav-explore-btn" id="navExploreBtn" aria-expanded="false" aria-haspopup="true">
+                Explore
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"/></svg>
+            </button>
+
+            <a id="nav-dl-btn" class="nav-dl-btn" href="https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe">Download</a>
+        </div>
+
+        <!-- Dropdown panel (mobile) -->
+        <div class="nav-explore-dropdown" id="navExploreDropdown">
+            <a href="#modes" class="nav-explore-link">Modes</a>
+            <a href="#how-it-works" class="nav-explore-link">How it Works</a>
+            <a href="#pricing" class="nav-explore-link">Pricing</a>
         </div>
     </nav>
 
@@ -1296,7 +1367,7 @@
                     <li>Hindi, Tamil, Marathi &amp; more</li>
                     <li>30 min/month dictation</li>
                 </ul>
-                <a id="free-dl-btn" href="downloads/ChillPill_Setup_2.3.exe" class="pricing-btn free">Download &amp; get started</a>
+                <a id="free-dl-btn" href="https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe" class="pricing-btn free">Download &amp; get started</a>
             </div>
             <div class="pricing-card pro">
                 <div class="pricing-popular">Most popular</div>
@@ -1341,7 +1412,7 @@
 
     <!-- Sticky bar -->
     <div class="sticky-bar">
-        <a id="sticky-dl-btn" href="downloads/ChillPill_Setup_2.3.exe" class="dl-btn windows">⬇ Download Free</a>
+        <a id="sticky-dl-btn" href="https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe" class="dl-btn windows">⬇ Download Free</a>
     </div>
 
     <script>
@@ -1592,8 +1663,8 @@
             var isWindows = /Windows/i.test(ua);
             var isMobile  = /iPhone|iPad|Android/i.test(ua);
 
-            var WIN_URL = 'downloads/ChillPill_Setup_2.3.exe';
-            var MAC_URL = 'downloads/ChillPill_Mac.dmg';
+            var WIN_URL = 'https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe';
+            var MAC_URL = 'https://downloads.getchillpill.xyz/ChillPill_Mac.dmg';
 
             var stickyBtn = document.getElementById('sticky-dl-btn');
 
@@ -2019,6 +2090,37 @@
             lastTs=ts; stateTs=ts;
             enterState(0,ts);
             requestAnimationFrame(draw);
+        });
+    })();
+    </script>
+
+    <script>
+    (function() {
+        var btn      = document.getElementById('navExploreBtn');
+        var dropdown = document.getElementById('navExploreDropdown');
+        if (!btn || !dropdown) return;
+
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var open = dropdown.classList.toggle('open');
+            btn.classList.toggle('open', open);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function() {
+            dropdown.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+
+        // Close when a link is tapped
+        dropdown.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                dropdown.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            });
         });
     })();
     </script>
