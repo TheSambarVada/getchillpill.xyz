@@ -1016,6 +1016,78 @@
     </style>
 </head>
 <body>
+    <!-- SmartScreen trust modal overlay -->
+    <div id="ss-modal-overlay">
+      <div id="ss-modal">
+        <button id="ss-modal-close-x" onclick="closeSsModal()">&#x2715;</button>
+        <h2>Your download is starting &#x2193;</h2>
+        <p class="ss-sub">Windows may show a SmartScreen warning. Here's exactly what to do — it takes 5 seconds.</p>
+
+        <div class="ss-step">
+          <div class="ss-num">1</div>
+          <div class="ss-step-body">
+            <strong>You'll see a blue SmartScreen popup</strong>
+            <p>Windows shows this for new apps that haven't built up enough download history yet. It doesn't mean the app is dangerous — it means we're a small indie app, not Microsoft.</p>
+            <div class="ss-dialog-mock">
+              <div class="mock-title">Windows SmartScreen</div>
+              <div class="mock-row">
+                <div class="mock-shield">🛡️</div>
+                <div class="mock-text">Windows protected your PC<br><span style="color:#555;font-size:12px;">Microsoft Defender SmartScreen prevented an unrecognized app from starting.</span></div>
+              </div>
+              <span class="mock-link">More info</span>
+              <div class="mock-btn-row">
+                <div class="mock-btn ghost">Don't run</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-step">
+          <div class="ss-num">2</div>
+          <div class="ss-step-body">
+            <strong>Click "More info"</strong>
+            <p>This reveals the publisher name and the "Run anyway" button. Click the blue "More info" text.</p>
+          </div>
+        </div>
+
+        <div class="ss-step">
+          <div class="ss-num">3</div>
+          <div class="ss-step-body">
+            <strong>Click "Run anyway"</strong>
+            <p>You'll see the publisher is <strong style="color:#e0e0e8;">Manish S Tuljapurkar</strong> — that's us. The installer is signed with an EV (Extended Validation) certificate. Click "Run anyway" to proceed.</p>
+            <div class="ss-dialog-mock">
+              <div class="mock-title">After clicking "More info"</div>
+              <div class="mock-row">
+                <div class="mock-shield">🛡️</div>
+                <div class="mock-text">App: ChillPill_Setup_2.3.exe<br><span style="color:#555;font-size:12px;">Publisher: Manish S Tuljapurkar</span></div>
+              </div>
+              <div class="mock-btn-row">
+                <div class="mock-btn primary">Run anyway</div>
+                <div class="mock-btn ghost">Don't run</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-vt-row">
+          <div class="ss-vt-icon">✅</div>
+          <div class="ss-vt-text">
+            <strong>0 / 69 antivirus engines flagged this file</strong>
+            <span>Independently verified on VirusTotal. <a href="https://www.virustotal.com/gui/file/eff84ffb6d8e909925872f49dae54e894aad39a41109f4fcf5eb510746cd78d9" target="_blank" rel="noopener">Check the scan yourself &rarr;</a></span>
+          </div>
+        </div>
+
+        <p style="font-size:12px;color:#444;margin:0 0 20px;line-height:1.6;">
+          Chill Pill is built by a two-person indie team in India. We're not a big company and we don't have the download volume yet for Windows to auto-trust us. The SmartScreen reputation builds naturally as more people install — thanks for bearing with us.
+        </p>
+
+        <div class="ss-footer">
+          <button class="ss-close-btn" onclick="closeSsModal()">Got it</button>
+          <button class="ss-dismiss" onclick="closeSsModal()">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Page-wide aurora background -->
     <div id="pageAurora" aria-hidden="true">
@@ -1473,7 +1545,11 @@
     <!-- SmartScreen trust modal -->
     <style>
         #ss-modal-overlay {
-            display: none; position: fixed; inset: 0; z-index: 9999;
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
+            z-index: 10000;
             background: rgba(0,0,0,0.72); backdrop-filter: blur(4px);
             align-items: center; justify-content: center;
         }
@@ -1570,83 +1646,16 @@
         #ss-modal-close-x:hover { color: #aaa; }
     </style>
 
-    <div id="ss-modal-overlay">
-      <div id="ss-modal">
-        <button id="ss-modal-close-x" onclick="closeSsModal()">&#x2715;</button>
-        <h2>Your download is starting &#x2193;</h2>
-        <p class="ss-sub">Windows may show a SmartScreen warning. Here's exactly what to do — it takes 5 seconds.</p>
 
-        <div class="ss-step">
-          <div class="ss-num">1</div>
-          <div class="ss-step-body">
-            <strong>You'll see a blue SmartScreen popup</strong>
-            <p>Windows shows this for new apps that haven't built up enough download history yet. It doesn't mean the app is dangerous — it means we're a small indie app, not Microsoft.</p>
-            <div class="ss-dialog-mock">
-              <div class="mock-title">Windows SmartScreen</div>
-              <div class="mock-row">
-                <div class="mock-shield">🛡️</div>
-                <div class="mock-text">Windows protected your PC<br><span style="color:#555;font-size:12px;">Microsoft Defender SmartScreen prevented an unrecognized app from starting.</span></div>
-              </div>
-              <span class="mock-link">More info</span>
-              <div class="mock-btn-row">
-                <div class="mock-btn ghost">Don't run</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ss-step">
-          <div class="ss-num">2</div>
-          <div class="ss-step-body">
-            <strong>Click "More info"</strong>
-            <p>This reveals the publisher name and the "Run anyway" button. Click the blue "More info" text.</p>
-          </div>
-        </div>
-
-        <div class="ss-step">
-          <div class="ss-num">3</div>
-          <div class="ss-step-body">
-            <strong>Click "Run anyway"</strong>
-            <p>You'll see the publisher is <strong style="color:#e0e0e8;">Manish S Tuljapurkar</strong> — that's us. The installer is signed with an EV (Extended Validation) certificate. Click "Run anyway" to proceed.</p>
-            <div class="ss-dialog-mock">
-              <div class="mock-title">After clicking "More info"</div>
-              <div class="mock-row">
-                <div class="mock-shield">🛡️</div>
-                <div class="mock-text">App: ChillPill_Setup_2.3.exe<br><span style="color:#555;font-size:12px;">Publisher: Manish S Tuljapurkar</span></div>
-              </div>
-              <div class="mock-btn-row">
-                <div class="mock-btn primary">Run anyway</div>
-                <div class="mock-btn ghost">Don't run</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ss-vt-row">
-          <div class="ss-vt-icon">✅</div>
-          <div class="ss-vt-text">
-            <strong>0 / 69 antivirus engines flagged this file</strong>
-            <span>Independently verified on VirusTotal. <a href="https://www.virustotal.com/gui/file/eff84ffb6d8e909925872f49dae54e894aad39a41109f4fcf5eb510746cd78d9" target="_blank" rel="noopener">Check the scan yourself &rarr;</a></span>
-          </div>
-        </div>
-
-        <p style="font-size:12px;color:#444;margin:0 0 20px;line-height:1.6;">
-          Chill Pill is built by a two-person indie team in India. We're not a big company and we don't have the download volume yet for Windows to auto-trust us. The SmartScreen reputation builds naturally as more people install — thanks for bearing with us.
-        </p>
-
-        <div class="ss-footer">
-          <button class="ss-close-btn" onclick="closeSsModal()">Got it</button>
-          <button class="ss-dismiss" onclick="closeSsModal()">Dismiss</button>
-        </div>
-      </div>
-    </div>
 
     <script>
         function closeSsModal() {
             document.getElementById('ss-modal-overlay').classList.remove('visible');
+            document.body.style.overflow = '';
         }
         function openSsModal() {
             document.getElementById('ss-modal-overlay').classList.add('visible');
+            document.body.style.overflow = 'hidden';
         }
         document.getElementById('ss-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeSsModal();
