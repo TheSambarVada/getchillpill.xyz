@@ -549,6 +549,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const platform = (urlParams.get('platform') || '').trim().toLowerCase();
         const email = (urlParams.get('email') || '').trim();
+        const message = (urlParams.get('message') || '').trim();
 
         const platformLabels = {
             mac: 'Mac app',
@@ -576,6 +577,9 @@
         if (email) {
             emailInput.value = email;
         }
+        if (message) {
+            messageInput.value = message;
+        }
         syncMobileField();
         followupSelect.addEventListener('change', syncMobileField);
 
@@ -591,6 +595,9 @@
             form.reset();
             if (email) {
                 emailInput.value = email;
+            }
+            if (message) {
+                messageInput.value = message;
             }
             syncMobileField();
             form.style.display = 'grid';
