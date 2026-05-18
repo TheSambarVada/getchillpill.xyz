@@ -922,6 +922,7 @@
             margin-top: 12px;
             min-height: 20px;
         }
+        .checkout-status:empty { display: none; }
         .checkout-status.error { color: #f87171; }
         .checkout-status.success { color: #22c55e; }
 
@@ -1466,7 +1467,7 @@
                     <li>Priority transcription speed</li>
                     <li>Early access to new features</li>
                 </ul>
-                <button id="subscribe-btn" class="pricing-btn pro-btn">Continue with paid plan</button>
+                <button id="subscribe-btn" class="pricing-btn pro-btn">Upgrade to Pro</button>
                 <div id="subscribe-status" class="checkout-status"></div>
             </div>
         </div>
@@ -1581,7 +1582,7 @@
                     modal: {
                         ondismiss: function () {
                             btn.disabled = false;
-                            btn.textContent = 'Continue with paid plan';
+                            btn.textContent = 'Upgrade to Pro';
                             setStatus('Payment window closed before completion.');
                         }
                     }
@@ -1608,7 +1609,7 @@
             })
             .catch(function (e) {
                 setStatus(e.message || 'Something went wrong. Please try again from Chill Pill.', 'error');
-                btn.textContent = 'Continue with paid plan';
+                btn.textContent = 'Upgrade to Pro';
                 btn.disabled = false;
             });
         };
