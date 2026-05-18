@@ -898,6 +898,11 @@
             cursor: pointer;
         }
         .pricing-btn:hover { transform: translateY(-2px); }
+        .pricing-btn:disabled {
+            cursor: wait;
+            opacity: 0.72;
+            transform: none;
+        }
         .pricing-btn.free {
             background: rgba(255,255,255,0.04);
             color: #888;
@@ -910,6 +915,15 @@
             box-shadow: 0 6px 20px rgba(34,197,94,0.28);
         }
         .pricing-btn.pro-btn:hover { box-shadow: 0 12px 32px rgba(34,197,94,0.42); }
+        .checkout-status {
+            color: #9ca3af;
+            font-size: 13px;
+            line-height: 1.45;
+            margin-top: 12px;
+            min-height: 20px;
+        }
+        .checkout-status.error { color: #f87171; }
+        .checkout-status.success { color: #22c55e; }
 
         /* ── Bottom CTA ── */
         .bottom-cta {
@@ -1452,14 +1466,8 @@
                     <li>Priority transcription speed</li>
                     <li>Early access to new features</li>
                 </ul>
-                <!-- subscribe-btn and subscribe-form hidden until web checkout is re-enabled -->
-                <button id="subscribe-btn" class="pricing-btn pro-btn" style="display:none;">Upgrade to Pro</button>
-                <div id="subscribe-form" style="display:none; margin-top:14px;">
-                    <input id="subscribe-email" type="email" placeholder="Your email address"
-                        style="width:100%; box-sizing:border-box; padding:10px 12px; background:#111; border:1px solid #333; border-radius:8px; color:#eee; font-size:14px; margin-bottom:8px;">
-                    <button id="subscribe-submit" class="pricing-btn pro-btn" style="margin-top:0;">Proceed to Payment</button>
-                    <div id="subscribe-error" style="margin-top:8px; font-size:12px; color:#f87171; min-height:16px;"></div>
-                </div>
+                <button id="subscribe-btn" class="pricing-btn pro-btn">Continue with paid plan</button>
+                <div id="subscribe-status" class="checkout-status"></div>
             </div>
         </div>
     </section>
@@ -1487,58 +1495,123 @@
         <a id="sticky-dl-btn" href="https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe" class="dl-btn windows">⬇ Download Free</a>
     </div>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
     (function () {
-        var btn    = document.getElementById('subscribe-btn');
-        var form   = document.getElementById('subscribe-form');
-        var input  = document.getElementById('subscribe-email');
-        var submit = document.getElementById('subscribe-submit');
-        var errEl  = document.getElementById('subscribe-error');
+        var btn = document.getElementById('subscribe-btn');
+        var statusEl = document.getElementById('subscribe-status');
         if (!btn) return;
 
-        // Step 1: show the email form
-        btn.onclick = function () {
-            btn.style.display = 'none';
-            form.style.display = 'block';
-            input.focus();
-        };
+        var API_BASES = [
+            'https://api.getchillpill.xyz',
+            'https://web-production-050e5.up.railway.app'
+        ];
 
-        // Step 2: submit email → call /subscribe → redirect
-        submit.onclick = function () {
-            var email = input.value.trim();
-            errEl.textContent = '';
-            if (!email || !email.includes('@')) {
-                errEl.textContent = 'Please enter a valid email address.';
+        function tokenFromUrl() {
+            var query = new URLSearchParams(window.location.search);
+            var hash = (window.location.hash || '').replace(/^#/, '');
+            var hashParams = new URLSearchParams(hash.replace(/^pricing[?&]?/, ''));
+            var token = query.get('token') || hashParams.get('token') || query.get('access_token') || hashParams.get('access_token') || '';
+            if (token && window.history && window.history.replaceState) {
+                window.history.replaceState(null, document.title, window.location.pathname + '#pricing');
+            }
+            return token;
+        }
+
+        function keepPricingInView() {
+            if (!window.location.hash || window.location.hash.indexOf('#pricing') !== 0) return;
+            var pricing = document.getElementById('pricing');
+            if (!pricing) return;
+            window.setTimeout(function () {
+                pricing.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 80);
+        }
+
+        keepPricingInView();
+
+        function setStatus(message, tone) {
+            statusEl.textContent = message || '';
+            statusEl.className = 'checkout-status' + (tone ? ' ' + tone : '');
+        }
+
+        function parseError(response) {
+            return response.json().then(function (data) {
+                throw new Error(data.detail || data.error || data.message || 'Checkout could not be created.');
+            }).catch(function (error) {
+                if (error && error.message) throw error;
+                throw new Error('Checkout could not be created.');
+            });
+        }
+
+        function createCheckout(token, index) {
+            var base = API_BASES[index || 0];
+            return fetch(base + '/create-subscription', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            }).then(function (response) {
+                if (response.ok) return response.json();
+                return parseError(response);
+            }).catch(function (error) {
+                if ((index || 0) + 1 < API_BASES.length) {
+                    return createCheckout(token, (index || 0) + 1);
+                }
+                throw error;
+            });
+        }
+
+        function openRazorpay(data) {
+            if (data.short_url) {
+                window.location.href = data.short_url;
                 return;
             }
-            submit.textContent = 'Loading\u2026';
-            submit.disabled = true;
-            fetch('https://api.getchillpill.xyz/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email })
-            })
-            .then(function (r) {
-                return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.detail || 'Error'); });
-            })
+            if (data.subscription_id && data.key_id && window.Razorpay) {
+                var checkout = new window.Razorpay({
+                    key: data.key_id,
+                    subscription_id: data.subscription_id,
+                    name: 'Chill Pill',
+                    description: 'Chill Pill paid plan',
+                    theme: { color: '#22c55e' },
+                    handler: function () {
+                        setStatus('Payment received. Chill Pill will update your plan shortly.', 'success');
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            btn.disabled = false;
+                            btn.textContent = 'Continue with paid plan';
+                            setStatus('Payment window closed before completion.');
+                        }
+                    }
+                });
+                checkout.open();
+                return;
+            }
+            throw new Error('Checkout response did not include a Razorpay link.');
+        }
+
+        btn.onclick = function () {
+            var token = tokenFromUrl();
+            if (!token) {
+                setStatus('Open this page from Chill Pill after signing in, then choose Compare plans again. That keeps payment tied to your account.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Opening payment...';
+            setStatus('Creating a secure Razorpay checkout...');
+            createCheckout(token)
             .then(function (data) {
-                if (data.short_url) {
-                    window.location.href = data.short_url;
-                } else {
-                    throw new Error('No checkout URL');
-                }
+                openRazorpay(data || {});
             })
             .catch(function (e) {
-                errEl.textContent = e.message || 'Something went wrong \u2014 please try again.';
-                submit.textContent = 'Proceed to Payment';
-                submit.disabled = false;
+                setStatus(e.message || 'Something went wrong. Please try again from Chill Pill.', 'error');
+                btn.textContent = 'Continue with paid plan';
+                btn.disabled = false;
             });
         };
-
-        // Allow Enter key in email field
-        input.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') submit.click();
-        });
     })();
     </script>
 
