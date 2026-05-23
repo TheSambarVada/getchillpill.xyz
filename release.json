@@ -12,6 +12,7 @@
     "url": "https://downloads.getchillpill.xyz/ChillPill_Setup_2.3.exe"
   },
   "mac": {
-    "url": "https://downloads.getchillpill.xyz/ChillPill_Mac.dmg"
+    "url": "https://downloads.getchillpill.xyz/ChillPill_Mac.dmg",
+    "sha256": "531d738b623a367e347a690c1b93db2ce2c9737e579df1e18d3281207165ca6d"
   }
 }
