@@ -9,7 +9,8 @@
     "Faster audio upload — switched to Opus encoding (~2× smaller than FLAC)"
   ],
   "windows": {
-    "url": "https://downloads.getchillpill.xyz/ChillPill_Setup_3.0.exe"
+    "url": "https://downloads.getchillpill.xyz/ChillPill_Setup_3.0.exe",
+    "sha256": "f23aa25e7409611c25601c605f1c30aafb3a11724174a016a497adda3f0bd37b"
   },
   "mac": {
     "url": "https://downloads.getchillpill.xyz/ChillPill_Mac.dmg",
