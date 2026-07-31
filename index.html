@@ -48,19 +48,19 @@
         },
         {
           "@type": "Offer",
-          "price": "199",
-          "priceCurrency": "INR",
-          "name": "Pro (Monthly)",
-          "description": "Unlimited Transform and Translate",
-          "billingIncrement": "P1M"
-        },
-        {
-          "@type": "Offer",
           "price": "1788",
           "priceCurrency": "INR",
           "name": "Pro (Annual)",
-          "description": "Unlimited Transform and Translate, billed annually (₹149/month)",
+          "description": "Unlimited Transform and Translate, billed annually — ₹149/month, save 25%",
           "billingIncrement": "P1Y"
+        },
+        {
+          "@type": "Offer",
+          "price": "199",
+          "priceCurrency": "INR",
+          "name": "Pro (Monthly)",
+          "description": "Unlimited Transform and Translate, billed monthly",
+          "billingIncrement": "P1M"
         }
       ],
       "inLanguage": ["en", "hi", "mr", "ta", "te", "kn", "ml", "bn", "gu", "pa"],
@@ -894,6 +894,19 @@
             color: #444;
             margin-bottom: 32px;
             font-weight: 500;
+            line-height: 1.7;
+        }
+        .pricing-save {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.14);
+            color: #22c55e;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 99px;
+            margin-left: 6px;
+            vertical-align: 1px;
         }
         .pricing-features {
             list-style: none;
@@ -1532,8 +1545,11 @@
             <div class="pricing-card pro">
                 <div class="pricing-popular">Most popular</div>
                 <div class="pricing-plan">Pro</div>
-                <div class="pricing-price">₹199 <span>/ month</span></div>
-                <div class="pricing-note">or ₹149/mo billed annually &nbsp;·&nbsp; cancel any time</div>
+                <div class="pricing-price">₹149 <span>/ month</span></div>
+                <div class="pricing-note">
+                    billed annually (₹1,788) <span class="pricing-save">Save 25%</span><br>
+                    or ₹199/mo billed monthly &nbsp;·&nbsp; cancel any time
+                </div>
                 <ul class="pricing-features">
                     <li>Everything in Free, always</li>
                     <li>Unlimited Transform — polished, formatted text</li>
@@ -1548,7 +1564,7 @@
     <!-- Bottom CTA -->
     <div class="bottom-cta">
         <h2>Stop typing.<br>Start talking.</h2>
-        <p>Transcribe is free forever. Transform &amp; Translate — 7-day trial, then ₹199/mo (₹149/mo annual). No commitment.</p>
+        <p>Transcribe is free forever. Transform &amp; Translate — 7-day trial, then ₹149/mo billed annually (or ₹199/mo monthly). No commitment.</p>
     </div>
 
     <!-- Footer -->
